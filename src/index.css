@@ -26,17 +26,13 @@
   p {
     @apply text-gray-700 leading-relaxed;
   }
-
-  a {
-    @apply text-primary-500 hover:text-primary-700 transition-colors;
-  }
 }
 
 
 
 @layer components {
   .btn {
-    @apply inline-flex items-center gap-2 px-6 py-3 font-medium rounded-xl transition-all duration-300 bg-primary text-white hover:bg-secondary hover:text-dark;
+    @apply inline-flex items-center gap-2 px-6 py-3 font-medium rounded-xl transition-all duration-300 bg-primary text-white hover:bg-secondary;
   }
 
   .btn-icon {

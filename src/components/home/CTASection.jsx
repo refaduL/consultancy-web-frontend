@@ -24,11 +24,11 @@ export default function CTASection() {
           <div className="flex flex-col gap-4">
             <button 
             onClick={() => navigate("/universities")}
-            className="bg-indigo-600 text-white px-6 py-3 rounded-full font-semibold hover:bg-indigo-700 transition duration-300 flex items-center gap-2">
+            className="w-full px-8 py-4 bg-gradient-to-br from-primary-500 to-primary-300 hover:from-primary-500 hover:to-primary-300/70 text-white font-semibold rounded-xl transition-all duration-200 flex items-center justify-center group">
               Start Your Journey
-              <ArrowRight className="w-4 h-4" />
+              <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
             </button>
-            <button className="border border-gray-300 text-gray-800 px-6 py-3 rounded-full font-medium hover:bg-gray-100 transition duration-300">
+            <button className="px-8 py-4 bg-white hover:bg-primary-100 text-gray-700 font-semibold rounded-xl flex items-center justify-center gap-2 transition-all shadow-soft border border-gray-200">
               Schedule a Call
             </button>
           </div>

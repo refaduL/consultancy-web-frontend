@@ -1,13 +1,14 @@
 import { Route, Routes } from "react-router-dom";
 
-import Home from "./pages/Home";
-import Services from "./pages/Services";
-import Universities from "./pages/Universities";
+import PlaceholderPage from "./components/common/Placeholder";
+import Layout from "./components/layout/Layout";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
-import Layout from "./components/layout/Layout";
 import ConsultationForm from "./pages/FreeConsultation";
-import PlaceholderPage from "./components/common/Placeholder";
+import Home from "./pages/Home";
+import Services from "./pages/Services";
+import UniversityDetail from "./pages/UniversityDetail";
+import UniversitiesList from "./pages/UniversityList";
 
 function App() {
   return (
@@ -15,7 +16,8 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/services" element={<Services />} />
-        <Route path="/universities" element={<Universities />} />
+        <Route path="/universities" element={<UniversitiesList />} />
+        <Route path="/universities/:id" element={<UniversityDetail />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/consultation" element={<ConsultationForm />} />

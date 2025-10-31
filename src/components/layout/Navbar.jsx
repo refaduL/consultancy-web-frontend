@@ -1,7 +1,6 @@
-// The full fix applied:
 import { useState, useEffect } from "react";
 import { Link, NavLink } from "react-router-dom";
-import { Menu, X } from "lucide-react";
+import { Menu, X, ArrowRight } from "lucide-react";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -52,7 +51,7 @@ export default function Navbar() {
       className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 ${
         isScrolled
           ? "bg-white/95 backdrop-blur-xl shadow-md py-3"
-          : "bg-white/60 backdrop-blur-lg shadow-sm py-4"
+          : "bg-transparent backdrop-blur-lg shadow-sm py-4"
       }`}
     >
       <div className="max-w-7xl mx-auto flex justify-between items-center px-6 sm:px-8">
@@ -67,17 +66,18 @@ export default function Navbar() {
         {/* Desktop Menu */}
         <div className="hidden md:flex items-center space-x-8">
           {navLinks.map((item) => (
-            // Use the helper component to correctly access isActive
             <NavItem key={item} item={item} />
           ))}
 
           {/* CTA button */}
           <Link
             to="/consultation"
-            className="ml-4 px-6 py-2.5 rounded-xl bg-gradient-to-r from-primary-500 to-primary-300 text-white text-sm font-semibold shadow-md hover:shadow-lg hover:scale-[1.03] transition-all duration-300"
-          >
+            className="flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-primary-500 to-primary-300 hover:from-[#3F6A8A] hover:to-[#3F6A8A] text-white font-semibold sm:rounded-r-2xl rounded-b-2xl sm:rounded-b-none transition-all duration-300 shadow-md hover:shadow-lg group">
             Free Consultation
+            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
           </Link>
+
+          
         </div>
 
         {/* Mobile Menu Button */}

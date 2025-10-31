@@ -307,3 +307,50 @@ export const countries = [
   { name: "Singapore", count: 8, popular: true },
   { name: "Ireland", count: 6, popular: false },
 ];
+
+
+// data/universitiesData.js (Example to match the component structure)
+
+export const universities = [
+  {
+    _id: "666872a0f82747d9646c7501", 
+    name: "Abertay University",
+    type: "Public",
+    nationalities: 60,
+    internationalStudents: 611,
+    location: "Dundee, UK",
+    totalPrograms: 186,
+    imageUrl: "https://via.placeholder.com/150/3F6A8A/FFFFFF?text=Abertay+Uni"
+  },
+  {
+    _id: "666872a0f82747d9646c7502",
+    name: "Accademia del Lusso",
+    type: "Private",
+    nationalities: 27,
+    internationalStudents: 100,
+    location: "Milan, Italy",
+    totalPrograms: 10,
+    imageUrl: "https://via.placeholder.com/150/F1828D/FFFFFF?text=Accademia"
+  },
+  {
+    _id: "666872a0f82747d9646c7503",
+    name: "Adelphi University",
+    type: "Private",
+    nationalities: 64,
+    internationalStudents: 657,
+    location: "New York City, USA",
+    totalPrograms: 44,
+    imageUrl: "https://via.placeholder.com/150/DDA54B/FFFFFF?text=Adelphi"
+  },
+  {
+    _id: "666872a0f82747d9646c7504",
+    name: "Tech Global Institute",
+    type: "Public",
+    nationalities: 85,
+    internationalStudents: 1200,
+    location: "Toronto, Canada",
+    totalPrograms: 250,
+    imageUrl: "https://via.placeholder.com/150/8FB9A8/FFFFFF?text=TGI"
+  },
+];
+

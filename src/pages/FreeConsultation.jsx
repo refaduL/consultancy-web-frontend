@@ -44,13 +44,19 @@ export default function ConsultationForm() {
     <div className="min-h-screen bg-neutral-50 py-20 px-4 md:px-8 lg:px-16">
         <div className="container max-w-7xl mx-auto px-4 py-12">
 
-        <h1 className="text-4xl font-bold text-gray-900 mb-3 text-center">
-          Free Consultation Form
-        </h1>
-        <p className="text-gray-500 text-center mb-10">
-          Fill in your details carefully to help us match you with the best
+        {/* --- Header --- */}
+        <header className="text-center mb-16">
+          <div className="inline-block bg-purple-100 text-purple-800 px-4 py-2 rounded-full text-sm font-semibold mb-4">
+            Consultation Form
+          </div>
+          <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4">
+            Free Consultation Form
+          </h2>
+          <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
+            Fill in your details carefully to help us match you with the best
           opportunities.
-        </p>
+          </p>
+        </header>
 
         <div className="grid lg:grid-cols-3 gap-12">
 
@@ -114,13 +120,13 @@ export default function ConsultationForm() {
 
               {/* Quick Actions */}
               <div className="mt-8 space-y-4">
-                <button className="w-full bg-green-600 text-white py-3 rounded-lg font-semibold hover:bg-green-700 transition duration-300 flex items-center justify-center">
+                <button className="w-full px-8 py-4 bg-gradient-to-br from-primary-500 to-primary-300 hover:from-primary-500 hover:to-primary-300/70 text-white font-semibold rounded-xl transition-all duration-200 shadow-md hover:shadow-lg flex items-center justify-center">
                   <MessageCircle size={20} className="mr-2" />
                   WhatsApp Chat
                 </button>
-                <button className="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition duration-300 flex items-center justify-center">
-                  <Video size={20} className="mr-2" />
-                  Video Call
+                <button className="w-full px-8 py-4 mx-auto bg-white hover:bg-primary-100 text-gray-700 font-semibold rounded-xl flex items-center justify-center gap-2 transition-all shadow-soft border border-gray-200">
+                  <Video size={20} className="mr-2 text-primary-300" />
+                  Book a Meeting
                 </button>
               </div>
             </div>

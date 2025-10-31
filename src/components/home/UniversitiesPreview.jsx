@@ -1,20 +1,12 @@
 // src/components/home/UniversitiesPreview.jsx
 import { ArrowRight } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { universitiesList } from '../../data/universitiesDB';
+import { UniversityCard } from '../../pages/UniversityList';
 
 export default function UniversitiesPreview() {
   const navigate = useNavigate();
 
-  const universities = [
-    { id: 1, name: "Harvard University", country: "USA", flag: "🇺🇸" },
-    { id: 2, name: "University of Toronto", country: "Canada", flag: "🇨🇦" },
-    { id: 3, name: "Imperial College London", country: "UK", flag: "🇬🇧" },
-    { id: 4, name: "University of Melbourne", country: "Australia", flag: "🇦🇺" },
-    { id: 5, name: "University of Toronto", country: "Canada", flag: "🇨🇦" },
-    { id: 6, name: "Imperial College London", country: "UK", flag: "🇬🇧" },
-    { id: 7, name: "Harvard University", country: "USA", flag: "🇺🇸" },
-    { id: 8, name: "University of Toronto", country: "Canada", flag: "🇨🇦" },
-  ];
 
   return (
     <section className="py-20 bg-gray-50">
@@ -32,19 +24,17 @@ export default function UniversitiesPreview() {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-4 gap-6 mb-12">
-          {universities.map((uni) => (
-            <div
-              key={uni.id}
-              onClick={() => navigate(`/page-not-found`)}
-              className="cursor-pointer bg-white border border-gray-100 rounded-2xl p-6 flex flex-col items-center justify-center text-center hover:shadow-lg transition-all duration-300"
-            >
-              <div className="text-5xl mb-4">{uni.flag}</div>
-              <h3 className="font-semibold text-gray-900 text-lg">{uni.name}</h3>
-              <p className="text-gray-500 mt-1">{uni.country}</p>
+        <div className="bg-gradient-to-b from-gray-50 to-white font-sans px-4 sm:px-8">
+              <div className="mx-auto m-20 max-w-6xl">
+         
+                {/* --- University Cards --- */}
+                <main className="space-y-8">
+                  {universitiesList.map((uni, i) => (
+                    (i<4) && <UniversityCard key={uni._id} university={uni} />
+                  ))}
+                </main>
+              </div>
             </div>
-          ))}
-        </div>
 
         <div className="text-center">
           <button
