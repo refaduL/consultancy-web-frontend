@@ -14,7 +14,7 @@
 
 @layer base {
   html {
-    @apply text-gray-900 bg-gradient-to-br from-[#FEFAD4] via-white to-[#F1E6C1];
+    @apply text-gray-900 bg-gradient-default;
     font-family: "Inter", ui-sans-serif, system-ui;
     scroll-behavior: smooth;
   }

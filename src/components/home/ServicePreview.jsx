@@ -56,7 +56,7 @@ const services = [
 export default function ServicesPreview() {
   return (
     <section className="py-24 px-4 md:px-8 lg:px-16 bg-teal-50">
-      <div className="max-w-7xl mx-auto text-center pt-12">
+      <div className="max-w-7xl mx-auto text-center pt-6">
 
         <div className="text-center mb-16">
           <div className="inline-block bg-purple-100 text-purple-800 px-4 py-2 rounded-full text-sm font-semibold mb-4">

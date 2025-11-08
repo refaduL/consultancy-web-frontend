@@ -2,7 +2,7 @@
 import { ArrowRight } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { universitiesList } from '../../data/universitiesDB';
-import { UniversityCard } from '../../pages/UniversityList';
+import UniversityCard from '../universities/UniversityCard';
 
 export default function UniversitiesPreview() {
   const navigate = useNavigate();

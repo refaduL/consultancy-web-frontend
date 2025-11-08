@@ -122,6 +122,7 @@ export default {
 
       // Gradients
       backgroundImage: {
+        "gradient-default": "bg-gradient-to-br from-[#FEFAD4] via-white to-[#F1E6C1]",
         "gradient-primary": "linear-gradient(135deg, #8FB9A8 0%, #F1828D 100%)",
         "gradient-soft": "linear-gradient(135deg, #FEFAD4 0%, #FCD0BA 100%)",
         "gradient-dark": "linear-gradient(135deg, #3F6A8A 0%, #765D69 100%)",

@@ -1,15 +1,13 @@
-import React from "react";
 import { Link } from "react-router-dom";
 import { Globe, MapPin, BookOpen, User, ArrowRight } from "lucide-react";
-import { universitiesList } from "../data/universitiesDB";
 
-export const UniversityCard = ({ university }) => {
+export default function UniversityCard ({ university }) {
   const { _id, name, type, nationalities, internationalStudents, location, totalPrograms, imageUrl } = university;
 
   return (
-    <div className="group bg-gradient-to-br from-white via-gray-50 to-indigo-50 hover:from-indigo-50 hover:to-white border border-gray-100 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 p-8 grid grid-cols-1 md:grid-cols-[2fr_1.5fr_auto] gap-6 md:items-center">
+    <div className="p-8 group bg-gradient-to-br from-white via-gray-50 to-indigo-50 hover:from-indigo-50 hover:to-white border border-gray-100 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 grid grid-cols-1 md:grid-cols-[2fr_1.5fr_auto] gap-6 md:items-center">
       
-      {/* --- Left Section --- */}
+      {/* Left Section */}
       <div className="flex items-start gap-5">
         <img
           src="https://plus.unsplash.com/premium_photo-1683888229109-17cb0975af20?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1632"
@@ -33,7 +31,7 @@ export const UniversityCard = ({ university }) => {
         </div>
       </div>
 
-      {/* --- Middle Section --- */}
+      {/* Middle Section */}
       <div className="flex justify-between md:justify-start md:gap-10 border-t md:border-t-0 md:border-l border-gray-200 pt-4 md:pt-0 md:pl-8">
         <div className="text-center md:text-left">
           <div className="text-lg font-semibold text-blue-700">{nationalities}</div>
@@ -59,7 +57,7 @@ export const UniversityCard = ({ university }) => {
         </div>
       </div>
 
-      {/* --- Right Section --- */}
+      {/* Right Section */}
       <div className="flex justify-start md:justify-end items-center">
         <Link
           to={`/universities/${_id}`}
@@ -69,37 +67,7 @@ export const UniversityCard = ({ university }) => {
           <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
         </Link>
       </div>
+      
     </div>
   );
 };
-
-const UniversitiesList = () => {
-  return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white font-sans px-4 sm:px-8 py-14">
-      <div className="mx-auto mt-10 max-w-6xl">
-        
-        {/* --- Header --- */}
-        <header className="text-center mb-16">
-          <div className="inline-block bg-purple-100 text-purple-800 px-4 py-2 rounded-full text-sm font-semibold mb-4">
-            Top Universities
-          </div>
-          <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4">
-            Explore Universities
-          </h2>
-          <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
-            Discover top universities across the globe. Click on any university to learn more about programs, requirements, and opportunities.
-          </p>
-        </header>
-
-        {/* --- University Cards --- */}
-        <main className="space-y-8">
-          {universitiesList.map((uni) => (
-            <UniversityCard key={uni._id} university={uni} />
-          ))}
-        </main>
-      </div>
-    </div>
-  );
-};
-
-export default UniversitiesList;

@@ -164,7 +164,6 @@ const universitiesDB = [
 ];
 
 
-// Exporting the full array and a utility function to easily find a university
 export default universitiesDB;
 
 export const getUniversityById = (id) => {

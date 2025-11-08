@@ -1,20 +1,8 @@
-import {
-  ArrowLeft,
-  Award,
-  Calendar,
-  Check,
-  DollarSign,
-  Globe,
-  GraduationCap,
-  MapPin,
-  Sparkles,
-  Star,
-  TrendingUp,
-  Users,
-} from "lucide-react";
+import { ArrowLeft, Award, Calendar, Check, DollarSign, Globe, GraduationCap, MapPin, Sparkles, Star, TrendingUp, Users } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { getUniversityById } from "../data/universitiesDB";
+import BackButton from "../components/common/BackButton";
 
 export default function UniversityDetail() {
   const { id } = useParams();
@@ -42,39 +30,19 @@ export default function UniversityDetail() {
       <div className="min-h-screen flex flex-col justify-center items-center bg-gradient-to-br from-slate-50 via-white to-indigo-50 text-center px-4">
         <h1 className="text-5xl font-bold text-slate-900 mb-4">404</h1>
         <p className="text-slate-600 text-xl mb-6">University Not Found</p>
-        <Link
-          to="/universities"
-          className="px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-medium transition-all shadow-lg shadow-indigo-200"
-        >
-          ← Back to Universities
-        </Link>
+        <BackButton text="Back to Universities" />
       </div>
     );
 
-  const {
-    name,
-    type,
-    location,
-    admission,
-    international,
-    ranking,
-    programs,
-    summary,
-    imageUrl,
-  } = university;
+  const { name, type, location, admission, international, ranking, programs, summary, imageUrl } = university;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-indigo-50">
+    <div className="min-h-screen bg-gradient-default">
       {/* Navigation */}
-      <nav className="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-200">
+      <nav className="sticky top-0 z-50 bg-red/90 backdrop-blur-md border-b border-slate-200">
         <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-          <Link
-            to="/universities"
-            className="flex items-center gap-2 px-4 py-2 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 hover:text-indigo-800 rounded-full font-medium transition-all duration-300 shadow-sm"
-          >
-            <ArrowLeft className="w-5 h-5" />
-            <span>Back to Universities</span>
-          </Link>
+
+          <BackButton text="Back to Universities" />
           {/* <button className="px-6 py-2.5 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white rounded-full font-semibold transition-all shadow-lg shadow-indigo-200">
             Apply Now
           </button> */}

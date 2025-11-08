@@ -23,8 +23,8 @@ export default function Contact() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-blue-100 pt-24 pb-16">
-      <div className="max-w-6xl mx-auto pt-3">
+    <div className="min-h-screen bg-gradient-default pt-24 pb-16">
+      <div className="max-w-6xl mx-auto pt-6">
         
         {/* --- Header --- */}
         <header className="text-center mb-16">
@@ -42,7 +42,7 @@ export default function Contact() {
         <div className="grid lg:grid-cols-2 gap-10">
           
           {/* Contact Information Card */}
-          <div className="bg-white/90 backdrop-blur-md border border-white/40 shadow-xl rounded-3xl p-10 hover:shadow-2xl transition-all duration-300 flex flex-col justify-between">
+          <div className="bg-primary-100/50 backdrop-blur-md border border-white/40 shadow-xl rounded-3xl p-10 hover:shadow-2xl transition-all duration-300 flex flex-col justify-between">
             <div>
               <h2 className="text-2xl font-semibold text-gray-900 mb-8">Get in Touch</h2>
 
@@ -112,7 +112,7 @@ export default function Contact() {
           </div>
 
           {/* Email Form Card */}
-          <div className="bg-white/90 backdrop-blur-md border border-white/40 shadow-xl rounded-3xl p-10 hover:shadow-2xl transition-all duration-300 flex flex-col justify-center">
+          <div className="bg-primary-100/50 backdrop-blur-md border border-white/40 shadow-xl rounded-3xl p-10 hover:shadow-2xl transition-all duration-300 flex flex-col justify-center">
             <h2 className="text-2xl font-semibold text-gray-900 text-center mb-2">
               Send Us a Message
             </h2>
