@@ -21,7 +21,7 @@ import {
   TrendingUp,
 } from "lucide-react";
 
-export default function AdminDashboard() {
+export default function AdminDashboardExperimental() {
   const [activeTab, setActiveTab] = useState("overview");
   const [sidebarOpen, setSidebarOpen] = useState(false);
 

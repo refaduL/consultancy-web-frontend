@@ -3,12 +3,14 @@ import { Route, Routes } from "react-router-dom";
 import PlaceholderPage from "./components/common/Placeholder";
 import Layout from "./components/layout/Layout";
 import About from "./pages/About";
+import AdminDashboard from "./pages/AdminDashboard";
 import Contact from "./pages/Contact";
 import ConsultationForm from "./pages/FreeConsultation";
 import Home from "./pages/Home";
 import Services from "./pages/Services";
 import Universities from "./pages/Universities";
 import UniversityDetail from "./pages/UniversityDetail";
+import UserDashboard from "./pages/UserDashboard";
 
 function App() {
   return (
@@ -25,6 +27,8 @@ function App() {
       </Route>
 
       <Route path="/universities/:id" element={<UniversityDetail />} />
+      <Route path="/admindashboard" element={<AdminDashboard />} />
+      <Route path="/userdashboard" element={<UserDashboard />} />
     </Routes>
   );
 }

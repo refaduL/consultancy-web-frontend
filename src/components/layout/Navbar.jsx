@@ -15,7 +15,7 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const navLinks = ["Home", "Services", "Universities", "About", "Contact"];
+  const navLinks = ["Home", "Services", "Universities", "About", "Contact", "AdminDashboard", "UserDashboard"];
 
   // Helper function to render a NavLink item and get access to isActive
   const NavItem = ({ item }) => (

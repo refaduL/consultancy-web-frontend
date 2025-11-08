@@ -35,8 +35,9 @@ const useCountUp = (end) => {
       { threshold: 0.3 }
     );
 
-    if (ref.current) observer.observe(ref.current);
-    return () => ref.current && observer.unobserve(ref.current);
+    let currentRef = ref.current;
+    if (currentRef) observer.observe(currentRef);
+    return () => currentRef && observer.unobserve(currentRef);
   }, [end]);
 
   return [count, ref];
