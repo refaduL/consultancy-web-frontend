@@ -1,12 +1,10 @@
-import React from "react";
-import { Home, Users, GraduationCap, FileText, MessageSquare, Settings, Menu, X } from "lucide-react";
+import { FileText, GraduationCap, Home, Menu, Settings, Users, X } from "lucide-react";
 
 const menuItems = [
   { id: "overview", label: "Overview", icon: Home },
   { id: "users", label: "Users", icon: Users },
   { id: "universities", label: "Universities", icon: GraduationCap },
   { id: "applications", label: "Applications", icon: FileText },
-  { id: "messages", label: "Messages", icon: MessageSquare },
   { id: "settings", label: "Settings", icon: Settings },
 ];
 
@@ -17,7 +15,7 @@ export default function AdminSidebar({ activeTab, onTabChange, isOpen, onToggle 
         isOpen ? "w-64" : "w-0 md:w-20"
       } bg-white border-r border-slate-200 transition-all duration-300 fixed h-full z-50 overflow-hidden`}
     >
-      <div className="p-5 border-b border-slate-200 flex items-center justify-between">
+      <div className="p-4 border-b border-slate-200 flex items-center justify-between">
         {isOpen && <h1 className="text-lg font-bold text-slate-900">Admin Panel</h1>}
         <button onClick={onToggle} className="p-2 hover:bg-slate-100 rounded-lg transition-colors">
           {isOpen ? <X className="w-5 h-5 text-slate-600" /> : <Menu className="w-5 h-5 text-slate-600" />}

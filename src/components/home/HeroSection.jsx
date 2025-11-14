@@ -1,5 +1,6 @@
 import { ArrowRight, Award, Globe2, GraduationCap, Play, Search, TrendingUp } from "lucide-react";
 import { useEffect, useState } from "react";
+import SearchBar from "../common/SearchBar";
 
 const HeroSection = () => {
   const [activeDestination, setActiveDestination] = useState(0);
@@ -66,8 +67,11 @@ const HeroSection = () => {
 
             {/* Search Bar */}
             <div className="relative max-w-xl mx-auto">
-              <div className="flex flex-col sm:flex-row bg-white rounded-2xl shadow-md border border-gray-100 overflow-hidden transition-all duration-300 focus-within:ring-2 focus-within:ring-[#8FB9A8]/30">
-                {/* Input section */}
+            <SearchBar
+              placeholder="Search universities, programs, or countries..." 
+              onChange={(text) => console.log(text)} />
+              {/* <div className="flex flex-col sm:flex-row bg-white rounded-2xl shadow-md border border-gray-100 overflow-hidden transition-all duration-300 focus-within:ring-2 focus-within:ring-[#8FB9A8]/30">
+
                 <div className="flex items-center px-5 flex-1">
                   <Search className="w-5 h-5 text-gray-400" />
                   <input
@@ -77,12 +81,11 @@ const HeroSection = () => {
                   />
                 </div>
 
-                {/* Search button */}
                 <button className="flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-primary-500 to-primary-300 hover:from-[#3F6A8A] hover:to-[#3F6A8A] text-white font-semibold sm:rounded-r-2xl rounded-b-2xl sm:rounded-b-none transition-all duration-300 shadow-md hover:shadow-lg group">
                   Search
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </button>
-              </div>
+              </div> */}
 
               {/* Quick Filters */}
               <div className="flex flex-wrap justify-center lg:justify-start gap-2 mt-4">
@@ -100,7 +103,7 @@ const HeroSection = () => {
                   )
                 )}
               </div>
-            </div>
+            </div> 
 
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row justify-center lg:justify-start gap-4 pt-4">

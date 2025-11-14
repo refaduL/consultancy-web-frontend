@@ -34,6 +34,18 @@ export default function AdminDashboard() {
     { id: 2, name: "Oxford University", country: "UK", programs: 38, admissionSeason: "Fall 2024" },
     { id: 3, name: "MIT", country: "USA", programs: 52, admissionSeason: "Spring 2025" },
     { id: 4, name: "Cambridge University", country: "UK", programs: 41, admissionSeason: "Fall 2024" },
+    { id: 5, name: "Harvard University", country: "USA", programs: 45, admissionSeason: "Spring 2025" },
+    { id: 6, name: "Oxford University", country: "UK", programs: 38, admissionSeason: "Fall 2024" },
+    { id: 7, name: "MIT", country: "USA", programs: 52, admissionSeason: "Spring 2025" },
+    { id: 8, name: "Cambridge University", country: "UK", programs: 41, admissionSeason: "Fall 2024" },
+    { id: 9, name: "Harvard University", country: "USA", programs: 45, admissionSeason: "Spring 2025" },
+    { id: 10, name: "Oxford University", country: "UK", programs: 38, admissionSeason: "Fall 2024" },
+    { id: 11, name: "MIT", country: "USA", programs: 52, admissionSeason: "Spring 2025" },
+    { id: 12, name: "Cambridge University", country: "UK", programs: 41, admissionSeason: "Fall 2024" },
+    { id: 13, name: "Harvard University", country: "USA", programs: 45, admissionSeason: "Spring 2025" },
+    { id: 14, name: "Oxford University", country: "UK", programs: 38, admissionSeason: "Fall 2024" },
+    { id: 25, name: "MIT", country: "USA", programs: 52, admissionSeason: "Spring 2025" },
+    { id: 26, name: "Cambridge University", country: "UK", programs: 41, admissionSeason: "Fall 2024" },
   ];
 
   const handleAddUniversity = () => {

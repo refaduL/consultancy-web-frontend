@@ -1,9 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import AdminSidebar from "./AdminSidebar";
 import AdminHeader from "./AdminHeader";
 
 export default function AdminLayout({ activeTab, onTabChange, children }) {
-  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(true);
+
+  useEffect(() => {
+    if (window.innerWidth >= 768) {
+      setSidebarOpen(true);   // md and above: open
+    } else {
+      setSidebarOpen(false);  // sm: collapsed
+    }
+  }, []);
 
   return (
     <div className="min-h-screen bg-slate-50 flex">
@@ -11,7 +19,7 @@ export default function AdminLayout({ activeTab, onTabChange, children }) {
         activeTab={activeTab}
         onTabChange={(tab) => {
           onTabChange(tab);
-          setSidebarOpen(false);
+          if (window.innerWidth < 768) setSidebarOpen(false);
         }}
         isOpen={sidebarOpen}
         onToggle={() => setSidebarOpen(!sidebarOpen)}

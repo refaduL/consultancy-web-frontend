@@ -1,19 +1,30 @@
-export default function SearchBar(){
-    return (
-            <div className="relative max-w-2xl">
-              <div className="relative flex items-center bg-white rounded-2xl shadow-large border border-gray-100 overflow-hidden transition-all duration-300 hover:shadow-xl focus-within:ring-4 focus-within:ring-primary-100">
-                <Search className="absolute left-6 w-5 h-5 text-gray-400" />
-                <input
-                  type="text"
-                  placeholder="Search universities, programs, or countries..."
-                  className="flex-1 pl-14 pr-4 py-5 text-base outline-none"
-                />
-                <button className="m-2 px-6 py-3 bg-gradient-to-r from-primary-500 to-primary-600 hover:from-primary-600 hover:to-primary-700 text-white font-semibold rounded-xl transition-all duration-200 flex items-center gap-2 shadow-md hover:shadow-glow">
-                  Search
-                  <ArrowRight className="w-4 h-4" />
-                </button>
-              </div>
-            </div>
+import { useState } from "react";
+import { ArrowRight, Search } from "lucide-react";
 
-    );
+export default function SearchBar({ placeholder, onChange }) {
+  const [searchText, setSearchText] = useState("");
+  function handleTextChange(e) {
+    const text = e.target.value;
+    setSearchText(text);
+    onChange(text);
+  }
+  return (  
+    <div className="flex flex-col sm:flex-row bg-white rounded-2xl shadow-md border border-gray-100 overflow-hidden transition-all duration-300 focus-within:ring-2 focus-within:ring-[#8FB9A8]/30">
+      <div className="flex items-center px-5 flex-1">
+        <Search className="w-5 h-5 text-gray-400" />
+        <input
+          type="text"
+          value={searchText}
+          placeholder={placeholder}
+          onChange={handleTextChange}
+          className="flex-1 pl-3 py-3 text-base outline-none text-gray-800"
+        />
+      </div>
+
+      <button className="flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-primary-500 to-primary-300 hover:from-[#3F6A8A] hover:to-[#3F6A8A] text-white font-semibold sm:rounded-r-2xl rounded-b-2xl sm:rounded-b-none transition-all duration-300 shadow-md hover:shadow-lg group">
+        Search
+        <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+      </button>
+    </div>
+  );
 }

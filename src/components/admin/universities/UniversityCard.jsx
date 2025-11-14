@@ -1,11 +1,9 @@
-// FILE: src/components/admin/universities/UniversityCard.jsx
-// ============================================
 import React from "react";
 import { Eye, Edit, Trash2 } from "lucide-react";
 
 export default function UniversityCard({ university, onEdit, onDelete }) {
   return (
-    <div className="bg-white rounded-xl border border-slate-200 p-5 hover:shadow-md transition-shadow">
+    <div className="bg-white rounded-lg border border-slate-200 p-4">
       <div className="flex items-start justify-between mb-3">
         <div className="min-w-0 flex-1">
           <h4 className="text-base font-bold text-slate-900 mb-1 truncate">{university.name}</h4>
