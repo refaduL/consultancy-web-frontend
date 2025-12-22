@@ -9,7 +9,8 @@ const applications = [
   { id: 4, student: "Olivia Taylor", university: "Cambridge", status: "rejected", date: "2024-01-12" },
 ];
 
-export default function ApplicationsTab() {
+export default function ApplicationsTab({ apps }) {
+  console.log("ApplicationsTab applications:", apps);
   return (
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">

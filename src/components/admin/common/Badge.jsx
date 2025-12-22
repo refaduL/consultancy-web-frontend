@@ -6,13 +6,15 @@ export default function Badge({ status, text, variant = "status" }) {
     if (variant === "season") return "bg-blue-100 text-blue-700";
 
     switch (status) {
-      case "pending":
+      case "draft": // not yet applied
+        return "bg-slate-100 text-slate-700";
+      case "submitted": // pending
         return "bg-yellow-100 text-yellow-700";
-      case "active":
+      case "accepted": // active
         return "bg-blue-100 text-blue-700";
-      case "rejected":
+      case "rejected": // rejected
         return "bg-red-100 text-red-700";
-      case "completed":
+      case "approved": // completed
         return "bg-emerald-200 text-emerald-700";
       default:
         return "bg-slate-100 text-slate-700";
@@ -21,13 +23,13 @@ export default function Badge({ status, text, variant = "status" }) {
 
   const getIcon = () => {
     switch (status) {
-      case "pending":
+      case "submitted":
         return <Clock className="w-3 h-3" />;
-      case "active":
+      case "accepted":
         return <PlayCircle className="w-3 h-3" />;
       case "rejected":
         return <XCircle className="w-3 h-3" />;
-      case "completed":
+      case "approved": // completed
         return <CheckCircle className="w-3 h-3" />;
       default:
         return null;

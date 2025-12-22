@@ -20,7 +20,7 @@ export default function UsersTab({ users }) {
       {/* Mobile Card View */}
       <div className="md:hidden space-y-3">
         {users.map((user) => (
-          <UserCard key={user.id} user={user} />
+          <UserCard key={user._id} user={user} />
         ))}
       </div>
 

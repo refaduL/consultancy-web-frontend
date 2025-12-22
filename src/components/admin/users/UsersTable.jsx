@@ -2,6 +2,7 @@
 import React from "react";
 import { Eye, Edit, Trash2, CheckCircle, Clock } from "lucide-react";
 import Badge from "../common/Badge";
+import formatDateTime from "../../../helpers/formatDateTime";
 
 export default function UsersTable({ users }) {
   return (
@@ -21,15 +22,16 @@ export default function UsersTable({ users }) {
             {users.map((user) => (
               <tr key={user.id} className="text-sm hover:bg-slate-50 transition-colors">
 
-                <td className="px-5 py-4  font-medium text-slate-900">{user.name}</td>
+                <td className="px-5 py-4  font-medium text-slate-900">{user.first_name + " " + user.last_name}</td>
 
                 <td className="px-5 py-4  text-slate-600 ">{user.email}</td>
 
                 <td className="px-5 py-4 text-center">
-                  <Badge status={user.status} />
+                  <Badge status={user.applications?.[0]?.status || "draft"} />
                 </td>
 
-                <td className="px-5 py-4  text-slate-600 text-center">{user.joinedAt}</td>
+                {/* <td className="px-5 py-4  text-slate-600 text-center">{formatDateTime(user.createdAt)}</td> */}
+                <td className="px-5 py-4  text-slate-600 text-center">{formatDateTime(user.createdAt)}</td>
 
                 <td className="px-5 py-4">
                   <div className="flex items-center justify-end gap-1">
