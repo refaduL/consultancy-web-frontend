@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 export default function Pagination({ 
-  totalPages = 26, 
+  totalPages = 1, 
   currentPage = 1, 
   onPageChange = () => {},
   perPage = 10,
@@ -205,7 +205,7 @@ export default function Pagination({
         {/* Items Per Page */}
         <div className="flex items-center gap-1 sm:gap-2 relative">
           <label htmlFor="per-page" className="text-sm font-medium text-gray-700 whitespace-nowrap">
-            Items:
+            ItemsPerPage:
           </label>
           <div className="relative">
             <input

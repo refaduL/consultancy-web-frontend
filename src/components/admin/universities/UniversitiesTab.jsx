@@ -12,7 +12,7 @@ export default function UniversitiesTab({ universities, onAddUniversity, onEditU
   const [sortBy, setSortBy] = useState("name");
   const [countryFilter, setCountryFilter] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const [perPage, setPerPage] = useState(5);
+  const [perPage, setPerPage] = useState(10);
 
 
   // PAGE SPECIFIC CONFIG

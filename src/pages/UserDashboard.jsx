@@ -141,7 +141,7 @@ export default function UserDashboard() {
     { id: 2, type: "info", message: "IELTS Score under review", date: "5 hours ago" },
     { id: 3, type: "success", message: "Academic Transcripts approved", date: "1 day ago" },
     { id: 4, type: "info", message: "Application approved by admin", date: "5 days ago" },
-  ];
+  ]; 
 
   const interestedUniversities = [
     { id: 1, name: "Harvard University", country: "USA", image: "https://images.unsplash.com/photo-1562774053-701939374585?w=400", ranking: 1, tuition: 55000 },

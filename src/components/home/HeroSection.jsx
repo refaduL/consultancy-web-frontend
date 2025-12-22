@@ -1,6 +1,7 @@
 import { ArrowRight, Award, Globe2, GraduationCap, Play, Search, TrendingUp } from "lucide-react";
 import { useEffect, useState } from "react";
 import SearchBar from "../common/SearchBar";
+import { fetchUsers } from "../../services/userService";
 
 const HeroSection = () => {
   const [activeDestination, setActiveDestination] = useState(0);
@@ -24,6 +25,11 @@ const HeroSection = () => {
     }, 3500);
     return () => clearInterval(interval);
   }, [destinations.length]);
+
+  const getAllUniversities = async () => {
+    const users = await fetchUsers();
+    console.log("Fetched Users: ", users);
+  };
 
   return (
     <section className="relative min-h-screen bg-gradient-to-br from-[#FEFAD4] via-white to-[#F1E6C1] overflow-hidden">
@@ -69,7 +75,9 @@ const HeroSection = () => {
             <div className="relative max-w-xl mx-auto">
             <SearchBar
               placeholder="Search universities, programs, or countries..." 
-              onChange={(text) => console.log(text)} />
+              onChange={(text) => console.log(text)}
+              onSmash={getAllUniversities}
+              />
               {/* <div className="flex flex-col sm:flex-row bg-white rounded-2xl shadow-md border border-gray-100 overflow-hidden transition-all duration-300 focus-within:ring-2 focus-within:ring-[#8FB9A8]/30">
 
                 <div className="flex items-center px-5 flex-1">

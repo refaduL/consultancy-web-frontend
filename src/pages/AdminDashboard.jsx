@@ -30,23 +30,23 @@ export default function AdminDashboard() {
   ];
 
   const recentUniversities = [
-    { id: 1, name: "Harvard University", country: "USA", programs: 45, admissionSeason: "Spring 2025" },
-    { id: 2, name: "Oxford University", country: "UK", programs: 38, admissionSeason: "Fall 2024" },
-    { id: 3, name: "MIT", country: "USA", programs: 52, admissionSeason: "Spring 2025" },
-    { id: 4, name: "Cambridge University", country: "UK", programs: 41, admissionSeason: "Fall 2024" },
-    { id: 5, name: "Harvard University", country: "USA", programs: 45, admissionSeason: "Spring 2025" },
-    { id: 6, name: "Oxford University", country: "UK", programs: 38, admissionSeason: "Fall 2024" },
-    { id: 7, name: "MIT", country: "USA", programs: 52, admissionSeason: "Spring 2025" },
-    { id: 8, name: "Cambridge University", country: "UK", programs: 41, admissionSeason: "Fall 2024" },
-    { id: 9, name: "Harvard University", country: "USA", programs: 45, admissionSeason: "Spring 2025" },
-    { id: 10, name: "Oxford University", country: "UK", programs: 38, admissionSeason: "Fall 2024" },
-    { id: 11, name: "MIT", country: "USA", programs: 52, admissionSeason: "Spring 2025" },
-    { id: 12, name: "Cambridge University", country: "UK", programs: 41, admissionSeason: "Fall 2024" },
-    { id: 13, name: "Harvard University", country: "USA", programs: 45, admissionSeason: "Spring 2025" },
-    { id: 14, name: "Oxford University", country: "UK", programs: 38, admissionSeason: "Fall 2024" },
-    { id: 25, name: "MIT", country: "USA", programs: 52, admissionSeason: "Spring 2025" },
-    { id: 26, name: "Cambridge University", country: "UK", programs: 41, admissionSeason: "Fall 2024" },
-  ];
+  { id: 1, name: "ETH Zurich", country: "Switzerland", programs: 58, admissionSeason: "Fall 2025" },
+  { id: 2, name: "University of Toronto", country: "Canada", programs: 75, admissionSeason: "Fall 2025" },
+  { id: 3, name: "National University of Singapore", country: "Singapore", programs: 62, admissionSeason: "Spring 2026" },
+  { id: 4, name: "University of Melbourne", country: "Australia", programs: 81, admissionSeason: "Semester 1 2026" },
+  { id: 5, name: "Technical University of Munich", country: "Germany", programs: 49, admissionSeason: "Winter 2025" },
+  { id: 6, name: "University of Tokyo", country: "Japan", programs: 55, admissionSeason: "Spring 2026" },
+  { id: 7, name: "PSL Research University Paris", country: "France", programs: 42, admissionSeason: "Fall 2025" },
+  { id: 8, name: "Nanyang Technological University", country: "Singapore", programs: 67, admissionSeason: "Fall 2025" },
+  { id: 9, name: "University of British Columbia", country: "Canada", programs: 70, admissionSeason: "Winter 2026" },
+  { id: 10, name: "University of Sydney", country: "Australia", programs: 78, admissionSeason: "Semester 2 2025" },
+  { id: 11, name: "Heidelberg University", country: "Germany", programs: 45, admissionSeason: "Summer 2026" },
+  { id: 12, name: "Seoul National University", country: "South Korea", programs: 53, admissionSeason: "Spring 2026" },
+  { id: 13, name: "KU Leuven", country: "Belgium", programs: 50, admissionSeason: "Fall 2025" },
+  { id: 14, name: "Delft University of Technology", country: "Netherlands", programs: 48, admissionSeason: "Fall 2025" },
+  { id: 15, name: "Peking University", country: "China", programs: 60, admissionSeason: "Fall 2025" },
+  { id: 16, name: "Kyoto University", country: "Japan", programs: 52, admissionSeason: "Fall 2025" }
+];
 
   const handleAddUniversity = () => {
     setEditingUniversity(null);

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { ArrowRight, Search } from "lucide-react";
 
-export default function SearchBar({ placeholder, onChange }) {
+export default function SearchBar({ placeholder, onChange, onSmash }) {
   const [searchText, setSearchText] = useState("");
   function handleTextChange(e) {
     const text = e.target.value;
@@ -21,7 +21,10 @@ export default function SearchBar({ placeholder, onChange }) {
         />
       </div>
 
-      <button className="flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-primary-500 to-primary-300 hover:from-[#3F6A8A] hover:to-[#3F6A8A] text-white font-semibold sm:rounded-r-2xl rounded-b-2xl sm:rounded-b-none transition-all duration-300 shadow-md hover:shadow-lg group">
+      <button 
+        className="flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-primary-500 to-primary-300 hover:from-[#3F6A8A] hover:to-[#3F6A8A] text-white font-semibold sm:rounded-r-2xl rounded-b-2xl sm:rounded-b-none transition-all duration-300 shadow-md hover:shadow-lg group"
+        onClick={onSmash}
+      >
         Search
         <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
       </button>
