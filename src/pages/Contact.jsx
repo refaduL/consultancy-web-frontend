@@ -23,131 +23,140 @@ export default function Contact() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-default pt-24 pb-16">
-      <div className="max-w-6xl mx-auto pt-6">
+    <section className="min-h-screen bg-gradient-default pt-24 pb-16 px-4 sm:px-6">
+      <div className="max-w-6xl mx-auto">
         
-        {/* --- Header --- */}
-        <header className="text-center mb-16">
-          <div className="inline-block bg-purple-100 text-purple-800 px-4 py-2 rounded-full text-sm font-semibold mb-4">
+        {/* Header */}
+        <header className="text-center mb-14">
+          <span className="inline-block bg-purple-100 text-purple-800 px-4 py-2 rounded-full text-sm font-semibold mb-4">
             Contact Us
-          </div>
-          <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4">
+          </span>
+
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-gray-900 mb-4">
             Let’s Talk
-          </h2>
-          <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
+          </h1>
+
+          <p className="text-base sm:text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
             Whether you’re a student or partner, our team is just one message away.
           </p>
         </header>
 
-        <div className="grid lg:grid-cols-2 gap-10">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           
-          {/* Contact Information Card */}
-          <div className="bg-primary-100/50 backdrop-blur-md border border-white/40 shadow-xl rounded-3xl p-10 hover:shadow-2xl transition-all duration-300 flex flex-col justify-between">
+          {/* Contact Info */}
+          <div className="bg-primary-100/50 backdrop-blur-md border border-white/40 shadow-xl rounded-3xl p-6 sm:p-8 lg:p-10 flex flex-col justify-between transition-all hover:shadow-2xl">
             <div>
-              <h2 className="text-2xl font-semibold text-gray-900 mb-8">Get in Touch</h2>
+              <h2 className="text-xl sm:text-2xl font-semibold text-gray-900 mb-8">
+                Get in Touch
+              </h2>
 
               <div className="space-y-6">
-                <div className="flex items-start gap-4">
-                  <div className="bg-indigo-100 p-3 rounded-lg">
-                    <Phone className="text-indigo-600" size={22} />
+                {[
+                  {
+                    icon: <Phone size={22} className="text-indigo-600" />,
+                    bg: 'bg-indigo-100',
+                    title: 'Call Us',
+                    lines: ['+1 (555) 123-4567', '+1 (555) 987-6543'],
+                  },
+                  {
+                    icon: <Mail size={22} className="text-green-600" />,
+                    bg: 'bg-green-100',
+                    title: 'Email Us',
+                    lines: ['admissions@eduglobal.com', 'support@eduglobal.com'],
+                  },
+                  {
+                    icon: <MapPin size={22} className="text-purple-600" />,
+                    bg: 'bg-purple-100',
+                    title: 'Visit Us',
+                    lines: [
+                      '123 Education Street, Knowledge City,',
+                      'KC 10001, United States',
+                    ],
+                  },
+                  {
+                    icon: <Clock size={22} className="text-orange-600" />,
+                    bg: 'bg-orange-100',
+                    title: 'Office Hours',
+                    lines: [
+                      'Mon - Fri: 9:00 AM - 7:00 PM',
+                      'Sat: 10:00 AM - 4:00 PM',
+                      'Sun: Closed',
+                    ],
+                  },
+                ].map((item, i) => (
+                  <div key={i} className="flex items-start gap-4">
+                    <div className={`${item.bg} p-3 rounded-xl shrink-0`}>
+                      {item.icon}
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-gray-900">
+                        {item.title}
+                      </h3>
+                      {item.lines.map((line, idx) => (
+                        <p key={idx} className="text-gray-600 text-sm sm:text-base">
+                          {line}
+                        </p>
+                      ))}
+                    </div>
                   </div>
-                  <div>
-                    <h3 className="font-semibold text-gray-900">Call Us</h3>
-                    <p className="text-gray-600">+1 (555) 123-4567</p>
-                    <p className="text-gray-600">+1 (555) 987-6543</p>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-4">
-                  <div className="bg-green-100 p-3 rounded-lg">
-                    <Mail className="text-green-600" size={22} />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-gray-900">Email Us</h3>
-                    <p className="text-gray-600">admissions@eduglobal.com</p>
-                    <p className="text-gray-600">support@eduglobal.com</p>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-4">
-                  <div className="bg-purple-100 p-3 rounded-lg">
-                    <MapPin className="text-purple-600" size={22} />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-gray-900">Visit Us</h3>
-                    <p className="text-gray-600">
-                      123 Education Street, Knowledge City,<br /> 
-                      KC 10001, United States
-                    </p>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-4">
-                  <div className="bg-orange-100 p-3 rounded-lg">
-                    <Clock className="text-orange-600" size={22} />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-gray-900">Office Hours</h3>
-                    <p className="text-gray-600">
-                      Mon - Fri: 9:00 AM - 7:00 PM<br />
-                      Sat: 10:00 AM - 4:00 PM<br />
-                      Sun: Closed
-                    </p>
-                  </div>
-                </div>
+                ))}
               </div>
             </div>
 
             <div className="mt-10 space-y-4">
-              <button className="w-full px-8 py-4 bg-gradient-to-r from-primary-500 to-primary-300 hover:from-primary-500 hover:to-primary-500 text-white font-semibold rounded-xl flex items-center justify-center gap-2 transition-all duration-300 shadow-md hover:shadow-lg">
+              <button className="w-full px-6 py-4 bg-gradient-to-r from-primary-500 to-primary-300 hover:to-primary-500 text-white font-semibold rounded-xl flex items-center justify-center gap-2 transition-all shadow-md hover:shadow-lg">
                 <MessageCircle size={20} /> WhatsApp Chat
               </button>
-              <button 
-                onClick={() => navigate("/consultation")}
-                className="w-full px-8 py-4 bg-white hover:bg-primary-100 text-gray-700 font-semibold rounded-xl flex items-center justify-center gap-2 transition-all shadow-soft border border-gray-200">
-                <Video size={20} className="text-indigo-400" /> 
+
+              <button
+                onClick={() => navigate('/consultation')}
+                className="w-full px-6 py-4 bg-white hover:bg-primary-100 text-gray-700 font-semibold rounded-xl flex items-center justify-center gap-2 transition-all border border-gray-200"
+              >
+                <Video size={20} className="text-indigo-400" />
                 Free Consultation
               </button>
             </div>
           </div>
 
-          {/* Email Form Card */}
-          <div className="bg-primary-100/50 backdrop-blur-md border border-white/40 shadow-xl rounded-3xl p-10 hover:shadow-2xl transition-all duration-300 flex flex-col justify-center">
-            <h2 className="text-2xl font-semibold text-gray-900 text-center mb-2">
+          {/* Contact Form */}
+          <div className="bg-primary-100/50 backdrop-blur-md border border-white/40 shadow-xl rounded-3xl p-6 sm:p-8 lg:p-10 flex flex-col justify-center transition-all hover:shadow-2xl">
+            <h2 className="text-xl sm:text-2xl font-semibold text-gray-900 text-center mb-2">
               Send Us a Message
             </h2>
-            <p className="text-gray-500 text-center mb-8">
+
+            <p className="text-gray-500 text-center text-sm sm:text-base mb-8">
               We usually respond within 24 hours.
             </p>
 
             <form onSubmit={handleSubmit} className="space-y-6">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Your Name
-                </label>
-                <input
-                  type="text"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  placeholder="Enter your name"
-                  className="w-full px-5 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-indigo-400 focus:outline-none text-gray-700 shadow-sm"
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Your Email
-                </label>
-                <input
-                  type="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  placeholder="Enter your email"
-                  className="w-full px-5 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-indigo-400 focus:outline-none text-gray-700 shadow-sm"
-                />
-              </div>
+              {[
+                {
+                  label: 'Your Name',
+                  type: 'text',
+                  name: 'name',
+                  placeholder: 'Enter your name',
+                },
+                {
+                  label: 'Your Email',
+                  type: 'email',
+                  name: 'email',
+                  placeholder: 'Enter your email',
+                },
+              ].map((field) => (
+                <div key={field.name}>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    {field.label}
+                  </label>
+                  <input
+                    type={field.type}
+                    name={field.name}
+                    value={formData[field.name]}
+                    onChange={handleChange}
+                    placeholder={field.placeholder}
+                    className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-indigo-400 focus:outline-none text-gray-700 shadow-sm"
+                  />
+                </div>
+              ))}
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -157,15 +166,15 @@ export default function Contact() {
                   name="message"
                   value={formData.message}
                   onChange={handleChange}
-                  placeholder="Write your message..."
                   rows="5"
-                  className="w-full px-5 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-indigo-400 focus:outline-none text-gray-700 shadow-sm resize-none"
+                  placeholder="Write your message..."
+                  className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-indigo-400 focus:outline-none text-gray-700 shadow-sm resize-none"
                 />
               </div>
 
               <button
                 type="submit"
-                className="w-full px-8 py-4 bg-gradient-to-r from-primary-500 to-primary-300 hover:from-primary-500 hover:to-primary-500 text-white font-semibold rounded-xl flex items-center justify-center gap-2 transition-all duration-300 shadow-md hover:shadow-lg"
+                className="w-full px-6 py-4 bg-gradient-to-r from-primary-500 to-primary-300 hover:to-primary-500 text-white font-semibold rounded-xl transition-all shadow-md hover:shadow-lg"
               >
                 Send Message
               </button>
@@ -179,6 +188,6 @@ export default function Contact() {
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 }
