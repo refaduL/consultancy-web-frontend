@@ -3,13 +3,22 @@ import UniversityCard from "./UniversityCard";
 import { Edit, Trash2, Eye } from "lucide-react";
 
 export default function UniversitiesGrid({ universities, onEdit, onDelete }) {
+  
+  if (universities.length === 0) {
+    return (
+      <div className="p-8 text-center text-slate-500">
+        No universities available.
+      </div>
+    );
+  }
+  
   return (
     <>
       {/* Mobile view — Cards */}
       <div className="grid sm:hidden gap-4">
         {universities.map((uni) => (
           <UniversityCard
-            key={uni.id}
+            key={uni._id}
             university={uni}
             onEdit={onEdit}
             onDelete={onDelete}
@@ -25,7 +34,7 @@ export default function UniversitiesGrid({ universities, onEdit, onDelete }) {
               <th className="px-5 py-3 text-left font-semibold">Name</th>
               <th className="text-left px-4 py-3 font-semibold">Country</th>
               <th className="text-left px-4 py-3 font-semibold">Programs</th>
-              <th className="text-left px-4 py-3 font-semibold">Admission</th>
+              <th className="text-left px-4 py-3 font-semibold">Type</th>
               <th className="px-4 py-3 font-semibold text-center">Actions</th>
             </tr>
           </thead>
@@ -33,7 +42,7 @@ export default function UniversitiesGrid({ universities, onEdit, onDelete }) {
           <tbody>
             {universities.map((uni) => (
               <tr
-                key={uni.id}
+                key={uni._id}
                 className="text-sm border-t border-slate-200 hover:bg-slate-50 transition"
               >
                 <td className="px-4 py-3 text-slate-900 font-medium">
@@ -45,12 +54,12 @@ export default function UniversitiesGrid({ universities, onEdit, onDelete }) {
                 </td>
 
                 <td className="px-4 py-3 text-slate-700">
-                  {uni.programs}
+                  {uni.programs.length}
                 </td>
 
                 <td className="px-4 py-3">
-                  <span className="px-2 py-1 rounded-full text-xs bg-blue-100 text-blue-700">
-                    {uni.admissionSeason}
+                  <span className="px-2 py-1 text-xs bg-blue-100 uppercase">
+                    {uni.type}
                   </span>
                 </td>
 

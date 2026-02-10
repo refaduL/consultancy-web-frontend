@@ -1,4 +1,5 @@
 import { ArrowRight, Award, Globe2, GraduationCap, Play, Search, TrendingUp } from "lucide-react";
+import { Link, NavLink } from "react-router-dom";
 import { useEffect, useState } from "react";
 import SearchBar from "../common/SearchBar";
 import { fetchUsers } from "../../services/userService";
@@ -115,10 +116,12 @@ const HeroSection = () => {
 
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row justify-center lg:justify-start gap-4 pt-4">
-              <button className="px-8 py-4 bg-gradient-to-r from-primary-500 to-primary-300 hover:from-primary-500 hover:to-primary-500 text-white font-semibold rounded-xl flex items-center justify-center gap-2 transition-all duration-300 shadow-md hover:shadow-lg group">
-                Get Free Consultation
-                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              </button>
+              <Link 
+                to="/consultation"
+                className="px-8 py-4 bg-gradient-to-r from-primary-500 to-primary-300 hover:from-primary-500 hover:to-primary-500 text-white font-semibold rounded-xl flex items-center justify-center gap-2 transition-all duration-300 shadow-md hover:shadow-lg group">
+                  Get Free Consultation
+                  <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              </Link>
               <button className="px-8 py-4 bg-white hover:bg-primary-100 text-gray-700 font-semibold rounded-xl flex items-center justify-center gap-2 transition-all shadow-soft border border-gray-200">
                 <Play className="w-5 h-5 text-primary-300" />
                 Watch How It Works

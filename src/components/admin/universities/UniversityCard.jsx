@@ -10,12 +10,12 @@ export default function UniversityCard({ university, onEdit, onDelete }) {
           <p className="text-xs text-slate-600">{university.country}</p>
         </div>
         <span className="text-xs font-semibold px-2 py-1 rounded-full whitespace-nowrap ml-2 bg-blue-100 text-blue-700">
-          {university.admissionSeason}
+          {university.type}
         </span>
       </div>
       <div className="mb-4 pb-4 border-b border-slate-200">
         <div className="text-xs text-slate-600">
-          <span className="font-semibold text-slate-900">{university.programs}</span> programs available
+          <span className="font-semibold text-slate-900">{university.programs.length}</span> programs available
         </div>
       </div>
       <div className="flex items-center gap-2">
