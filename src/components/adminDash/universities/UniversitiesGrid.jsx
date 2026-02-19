@@ -33,8 +33,8 @@ export default function UniversitiesGrid({ universities, onEdit, onDelete }) {
             <tr>
               <th className="px-5 py-3 text-left font-semibold">Name</th>
               <th className="text-left px-4 py-3 font-semibold">Country</th>
-              <th className="text-left px-4 py-3 font-semibold">Programs</th>
-              <th className="text-left px-4 py-3 font-semibold">Type</th>
+              <th className="text-center px-4 py-3 font-semibold">Programs</th>
+              <th className="text-center px-4 py-3 font-semibold">Type</th>
               <th className="px-4 py-3 font-semibold text-center">Actions</th>
             </tr>
           </thead>
@@ -53,11 +53,11 @@ export default function UniversitiesGrid({ universities, onEdit, onDelete }) {
                   {uni.country}
                 </td>
 
-                <td className="px-4 py-3 text-slate-700">
+                <td className="px-4 py-3 text-center text-slate-700">
                   {uni.programs.length}
                 </td>
 
-                <td className="px-4 py-3">
+                <td className="px-4 py-3 text-center">
                   <span className="px-2 py-1 text-xs bg-blue-100 uppercase">
                     {uni.type}
                   </span>

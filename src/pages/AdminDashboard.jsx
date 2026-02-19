@@ -1,11 +1,11 @@
 import { useEffect, useMemo, useState } from "react";
-import ApplicationsTab from "../components/admin/applications/ApplicationsTab";
-import AdminLayout from "../components/admin/layout/AdminLayout";
-import OverviewTab from "../components/admin/overview/OverviewTab";
-import DeleteConfirmModal from "../components/admin/universities/DeleteConfirmModal";
-import UniversitiesTab from "../components/admin/universities/UniversitiesTab";
-import UniversityFormModal from "../components/admin/universities/UniversityFormModal";
-import UsersTab from "../components/admin/users/UsersTab";
+import ApplicationsTab from "../components/adminDash/applications/ApplicationsTab";
+import AdminLayout from "../components/adminDash/layout/AdminLayout";
+import OverviewTab from "../components/adminDash/overview/OverviewTab";
+import DeleteConfirmModal from "../components/adminDash/universities/DeleteConfirmModal";
+import UniversitiesTab from "../components/adminDash/universities/UniversitiesTab";
+import UniversityFormModal from "../components/adminDash/universities/UniversityFormModal";
+import UsersTab from "../components/adminDash/users/UsersTab";
 import { fetchApplications } from "../services/applicationsService";
 import { fetchUniversities } from "../services/universityService";
 import { fetchUsers } from "../services/userService";
