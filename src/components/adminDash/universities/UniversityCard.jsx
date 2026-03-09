@@ -1,7 +1,10 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { Eye, Edit, Trash2 } from "lucide-react";
 
 export default function UniversityCard({ university, onEdit, onDelete }) {
+  const navigate = useNavigate();
+
   return (
     <div className="bg-white rounded-lg border border-slate-200 p-4">
       <div className="flex items-start justify-between mb-3">
@@ -19,12 +22,15 @@ export default function UniversityCard({ university, onEdit, onDelete }) {
         </div>
       </div>
       <div className="flex items-center gap-2">
-        <button className="flex-1 px-3 py-2 bg-slate-50 hover:bg-slate-100 text-slate-700 rounded-lg transition-colors font-medium text-xs">
-          <Eye className="w-3.5 h-3.5 inline mr-1" />
-          View
+        <button 
+          onClick={() => navigate(`/admin/universities/${university._id}?mode=view`)}
+          className="flex-1 px-3 py-2 bg-slate-50 hover:bg-slate-100 text-slate-700 rounded-lg transition-colors font-medium text-xs">
+            <Eye className="w-3.5 h-3.5 inline mr-1" />
+            View
         </button>
         <button
-          onClick={() => onEdit(university)}
+          // onClick={() => onEdit(university)}
+          onClick={() => navigate(`/admin/universities/${university._id}?mode=edit`)}
           className="flex-1 px-3 py-2 bg-indigo-50 hover:bg-indigo-100 text-indigo-600 rounded-lg transition-colors font-medium text-xs"
         >
           <Edit className="w-3.5 h-3.5 inline mr-1" />

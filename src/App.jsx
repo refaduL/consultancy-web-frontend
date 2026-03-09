@@ -14,6 +14,7 @@ import UniversityDetail from "./pages/UniversityDetail";
 import UserDashboard from "./pages/UserDashboard";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import PublicRoute from "./routes/PublicRoute";
+import UniversityDetailPage from "./components/adminDash/universities/UniDetailPage";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         <Route path="universities" element={<Universities />} />
         <Route path="about" element={<About />} />
         <Route path="contact" element={<Contact />} />
+        <Route path="test" element={<UniversityDetailPage title="Test Page" />} />
         <Route path="consultation" element={<ConsultationForm />} />
 
         <Route

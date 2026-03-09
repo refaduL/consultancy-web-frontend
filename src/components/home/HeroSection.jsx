@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { ArrowRight, Award, Globe2, GraduationCap, Play, Search, TrendingUp } from "lucide-react";
 import { Link, NavLink } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -5,6 +6,7 @@ import SearchBar from "../common/SearchBar";
 import { fetchUsers } from "../../services/userService";
 
 const HeroSection = () => {
+  const navigate = useNavigate();
   const [activeDestination, setActiveDestination] = useState(0);
 
   const destinations = [
@@ -122,7 +124,7 @@ const HeroSection = () => {
                   Get Free Consultation
                   <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </Link>
-              <button className="px-8 py-4 bg-white hover:bg-primary-100 text-gray-700 font-semibold rounded-xl flex items-center justify-center gap-2 transition-all shadow-soft border border-gray-200">
+              <button onClick={() => navigate("/how-it-works")} className="px-8 py-4 bg-white hover:bg-primary-100 text-gray-700 font-semibold rounded-xl flex items-center justify-center gap-2 transition-all shadow-soft border border-gray-200">
                 <Play className="w-5 h-5 text-primary-300" />
                 Watch How It Works
               </button>

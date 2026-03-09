@@ -21,7 +21,7 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const navLinks = ["HOME", "SERVICES", "UNIVERSITIES", "ABOUT", "CONTACT", roleBasedLink].filter(Boolean); // Filter out null links
+  const navLinks = ["HOME", "SERVICES", "UNIVERSITIES", "ABOUT", "CONTACT", "TEST", roleBasedLink].filter(Boolean); // Filter out null links
 
   // Helper function to render a NavLink item and get access to isActive
   const NavItem = ({ item }) => (
