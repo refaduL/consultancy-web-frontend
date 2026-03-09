@@ -42,12 +42,12 @@ function LoginForm({ onSwitch }) {
         navigate("/admindashboard");
       }
       
-    } catch (err) {
-      setError(err.response?.data?.message || "Login failed");
+    } catch (errMsg) {
+      setError(errMsg || "Login failed");
       addToast({
         type: "error",
         title: "Login Failed",
-        description: err.response?.data?.message || "Invalid email or password",
+        description: errMsg || "Something went wrong. Please try again.",
       });
     } finally {
       setLoading(false);
@@ -162,12 +162,6 @@ function RegisterForm({ onSwitch }) {
     setError("");
     setLoading(true);
     try {
-    console.log("Registering user with data:", {
-        first_name: form.name.split(" ")[0],
-        last_name: form.name.split(" ")[1] || "",
-        email: form.email,
-        password: form.password,
-    });
       // Backend register call
       await registerUser({
         first_name: form.name.split(" ")[0],

@@ -4,7 +4,7 @@ import { Eye, Edit, Trash2, CheckCircle, Clock } from "lucide-react";
 import Badge from "../common/Badge";
 import formatDateTime from "../../../helpers/formatDateTime";
 
-export default function UsersTable({ users }) {
+export default function UsersTable({ users, onDeleteUser }) {
   return (
     <div className="bg-white rounded-xl border border-slate-200 overflow-hidden">
       <div className="overflow-x-auto">
@@ -41,7 +41,7 @@ export default function UsersTable({ users }) {
                     <button className="p-2 hover:bg-slate-100 rounded-lg transition-colors">
                       <Edit className="w-4 h-4 text-slate-600" />
                     </button>
-                    <button className="p-2 hover:bg-red-50 rounded-lg transition-colors">
+                    <button className="p-2 hover:bg-red-50 rounded-lg transition-colors" onClick={() => onDeleteUser(user)}>
                       <Trash2 className="w-4 h-4 text-red-600" />
                     </button>
                   </div>

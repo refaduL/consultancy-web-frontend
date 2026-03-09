@@ -3,7 +3,7 @@ import { Plus } from "lucide-react";
 import UsersTable from "./UsersTable";
 import UserCard from "./UserCard";
 
-export default function UsersTab({ users }) {
+export default function UsersTab({ users, onDeleteUser }) {
   return (
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
@@ -26,7 +26,7 @@ export default function UsersTab({ users }) {
 
       {/* Desktop Table View */}
       <div className="hidden md:block">
-        <UsersTable users={users} />
+        <UsersTable users={users} onDeleteUser={onDeleteUser} />
       </div>
     </div>
   );

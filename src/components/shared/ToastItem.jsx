@@ -101,9 +101,10 @@ export default function ToastItem({
       onMouseLeave={resumeTimer}
       className={`
         relative
-        w-[340px]
+        w-[360px]
+        w-90%
         overflow-hidden
-        rounded-3xl
+        rounded-xl
         border
         ${config.border}
         bg-white/85 backdrop-blur-2xl
@@ -134,8 +135,8 @@ export default function ToastItem({
 
         {/* Content */}
         <div className="flex-1">
-          <h4 className="text-base font-semibold text-slate-900">{title}</h4>
-          <p className="text-sm text-slate-600 mt-1 leading-relaxed">
+          <h4 className="text-lg font-semibold text-slate-900">{title}</h4>
+          <p className="text-base text-slate-600 mt-1 leading-relaxed">
             {description}
           </p>
         </div>
@@ -150,7 +151,7 @@ export default function ToastItem({
             text-lg
           "
         >
-          ×
+          X
         </button>
       </div>
 

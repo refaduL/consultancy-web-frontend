@@ -2,9 +2,15 @@ import { useState, useEffect } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { Menu, X, ArrowRight, ArrowLeft } from "lucide-react";
 
+import { useAuth } from "../../hooks/useAuth";
+
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+
+  const { user, loading } = useAuth();
+  const roleName = user?.role?.role_name || null;
+  const roleBasedLink = roleName === "student" ? "UserDashboard" : roleName === "admin" || roleName === "agent" ? "AdminDashboard" : null;
 
   // Detect scroll to slightly solidify navbar
   useEffect(() => {
@@ -15,12 +21,12 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const navLinks = ["Home", "Services", "Universities", "About", "Contact", "AdminDashboard", "UserDashboard"];
+  const navLinks = ["HOME", "SERVICES", "UNIVERSITIES", "ABOUT", "CONTACT", roleBasedLink].filter(Boolean); // Filter out null links
 
   // Helper function to render a NavLink item and get access to isActive
   const NavItem = ({ item }) => (
     <NavLink
-      to={item === "Home" ? "/" : `/${item.toLowerCase()}`}
+      to={item === "HOME" ? "/" : `/${item.toLowerCase()}`}
     >
       {({ isActive }) => {
         const underlineClasses = isActive 
@@ -68,17 +74,29 @@ export default function Navbar() {
           {navLinks.map((item) => (
             <NavItem key={item} item={item} />
           ))}
-
-          {/* CTA button */}
-          <Link
-            to="/login"
-            className="flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-primary-500 to-primary-300 hover:from-[#3F6A8A] hover:to-[#3F6A8A] text-white font-semibold sm:rounded-r-2xl rounded-b-2xl sm:rounded-b-none transition-all duration-300 shadow-md hover:shadow-lg group">
-            Login/Register
-            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-          </Link>
-
-          
         </div>
+          {/* CTA button */}
+        <div className="hidden md:flex items-center">
+          {
+            !loading && user ? (
+              <Link
+                to="/consultation"
+                className="flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-primary-500 to-primary-300 hover:from-[#3F6A8A] hover:to-[#3F6A8A] text-white font-semibold sm:rounded-r-2xl rounded-b-2xl sm:rounded-b-none transition-all duration-300 shadow-md hover:shadow-lg group">
+                Free Consultation
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </Link>
+            ) : (
+              <Link
+                to="/login"
+                className="flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-primary-500 to-primary-300 hover:from-[#3F6A8A] hover:to-[#3F6A8A] text-white font-semibold sm:rounded-r-2xl rounded-b-2xl sm:rounded-b-none transition-all duration-300 shadow-md hover:shadow-lg group">
+                Login/Register
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </Link>
+            )
+          }
+        </div>
+          
+        
 
         {/* Mobile Menu Button */}
         <button
@@ -113,20 +131,26 @@ export default function Navbar() {
             </NavLink>
           ))}
           <div className="flex items-center gap-4">
-            {/* <Link
-              to="/consultation"
-              onClick={() => setIsOpen(false)}
-              className="px-6 py-2 bg-gradient-to-r from-primary-500 to-primary-300 text-white rounded-xl text-sm font-semibold shadow-md hover:shadow-lg hover:scale-[1.05] transition-all duration-300"
-            >
-              Free Consultation
-            </Link> */}
-            <Link
-              to="/login"
-              onClick={() => setIsOpen(false)}
-              className="px-6 py-2 bg-gradient-to-r from-primary-500 to-primary-300 text-white rounded-xl text-sm font-semibold shadow-md hover:shadow-lg hover:scale-[1.05] transition-all duration-300"
-            >
-              Login/Register
-            </Link>
+            {
+              !loading && user ? ( 
+                <Link
+                  to="/consultation"
+                  onClick={() => setIsOpen(false)}
+                  className="px-6 py-2 bg-gradient-to-r from-primary-500 to-primary-300 text-white rounded-xl text-sm font-semibold shadow-md hover:shadow-lg hover:scale-[1.05] transition-all duration-300"
+                >
+                  Free Consultation
+                </Link>) : (
+                <Link
+                  to="/login"
+                  onClick={() => setIsOpen(false)}
+                  className="px-6 py-2 bg-gradient-to-r from-primary-500 to-primary-300 text-white rounded-xl text-sm font-semibold shadow-md hover:shadow-lg hover:scale-[1.05] transition-all duration-300"
+                >
+                  Login/Register
+                </Link>
+                )
+            }
+            
+            
           </div>
           
         </div>

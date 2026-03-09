@@ -1,9 +1,9 @@
-// FILE: src/components/admin/universities/DeleteConfirmModal.jsx
+// FILE: src/components/common/DeleteConfirmModal.jsx
 // ============================================
 import React from "react";
 import { Trash2 } from "lucide-react";
 
-export default function UniDeleteConfirmModal({ university, onClose, onConfirm }) {
+export default function DeleteConfirmModal({ entity, onClose, onConfirm }) {
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
       <div className="bg-white rounded-2xl w-full max-w-md p-6">
@@ -11,9 +11,9 @@ export default function UniDeleteConfirmModal({ university, onClose, onConfirm }
           <Trash2 className="w-6 h-6 text-red-600" />
         </div>
 
-        <h2 className="text-xl font-bold text-slate-900 text-center mb-2">Delete University?</h2>
+        <h2 className="text-xl font-bold text-slate-900 text-center mb-2">Delete {entity?.type}?</h2>
         <p className="text-sm text-slate-600 text-center mb-6">
-          Are you sure you want to delete <span className="font-semibold">{university?.name}</span>? This action
+          Are you sure you want to delete <span className="font-semibold">{entity?.name || entity?.first_name + " " + entity?.last_name}</span>? This action
           cannot be undone.
         </p>
 
