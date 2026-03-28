@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import AdminSidebar from "./AdminSidebar";
 import AdminHeader from "./AdminHeader";
+import Navbar from "../../layout/Navbar";
 
 export default function AdminLayout({ activeTab, onTabChange, children }) {
   const [sidebarOpen, setSidebarOpen] = useState(true);
@@ -15,6 +16,7 @@ export default function AdminLayout({ activeTab, onTabChange, children }) {
 
   return (
     <div className="min-h-screen bg-slate-50 flex">
+      {/* <Navbar /> */}
       <AdminSidebar
         activeTab={activeTab}
         onTabChange={(tab) => {

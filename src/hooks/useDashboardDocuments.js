@@ -49,11 +49,10 @@ export default function useDashboardDocuments(user) {
       mapDocuments(res.payload.documents);
       addToast({
         type: "success",
-        title: res.data.message || "Document Uploaded",
+        title: res?.message || "Document Uploaded",
         description: `${DOCUMENT_META[field]?.name || field} uploaded successfully!`,
       });
     } catch (error) {
-      console.log("Upload Error:", error);
       addToast({
         type: "error",
         title: "Upload Failed",

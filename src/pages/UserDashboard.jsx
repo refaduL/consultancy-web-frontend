@@ -66,6 +66,7 @@ export default function UserDashboard() {
 
         <div className="flex flex-col lg:flex-row gap-8">
           <DocumentsSection
+            applicationStatus={user?.application?.status || "pending"}
             documents={documents}
             completion={completion}
             loadingDocKey={loadingDocKey}

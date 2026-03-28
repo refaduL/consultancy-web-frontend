@@ -139,13 +139,9 @@ function LoginForm({ onSwitch }) {
 /* ================= REGISTER ================= */
 function RegisterForm({ onSwitch }) {
   const { login } = useAuth();
+  const { addToast } = useToast();
   const [showPassword, setShowPassword] = useState(false);
-  const [form, setForm] = useState({
-    name: "",
-    email: "",
-    password: "",
-    confirm: "",
-  });
+  const [form, setForm] = useState({ name: "", email: "", password: "", confirm: "" });
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -170,12 +166,24 @@ function RegisterForm({ onSwitch }) {
         password: form.password,
       });
 
+      addToast({
+        type: "success",
+        title: "Verify Email for Account Activation",
+        description: "We've sent a verification link to your email.",
+      });
+
       // Auto-login after register
-    //   await login(form.email, form.password);
+      //  await login(form.email, form.password);
     } catch (err) {
       setError(err.response?.data?.message || "Registration failed");
+      addToast({
+        type: "error",
+        title: "Registration Failed",
+        description: err.response?.data?.message || "Something went wrong. Please try again.",
+      });
     } finally {
       setLoading(false);
+      setForm({ name: "", email: "", password: "", confirm: "" });
     }
   };
 

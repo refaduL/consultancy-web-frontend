@@ -1,7 +1,8 @@
 // FILE: src/components/admin/layout/AdminHeader.jsx
 // ============================================
 import React from "react";
-import { Search, Menu } from "lucide-react";
+import { Search, Menu, LogOut } from "lucide-react";
+import Button from "../../common/Button";
 
 const menuItems = [
   { id: "overview", label: "Overview" },
@@ -12,7 +13,14 @@ const menuItems = [
   { id: "settings", label: "Settings" },
 ];
 
+import { useAuth } from "../../../hooks/useAuth";
+
+
 export default function AdminHeader({ activeTab, onMenuClick }) {
+
+  const { user, loading, logout } = useAuth();
+  const initials = `${user?.first_name?.[0] ?? ""}${user?.last_name?.[0] ?? ""}`;
+
   return (
     <header className="bg-white border-b border-slate-200 px-4 md:px-8 py-4 sticky top-0 z-40">
       <div className="flex items-center justify-between gap-4">
@@ -35,9 +43,15 @@ export default function AdminHeader({ activeTab, onMenuClick }) {
               className="pl-9 pr-4 py-2 text-sm border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 w-48 lg:w-64"
             />
           </div>
-          <div className="w-9 h-9 bg-indigo-600 rounded-full flex items-center justify-center text-white font-semibold text-sm">
-            A
+          <div className="w-9 h-9 bg-indigo-600 rounded-full flex items-center justify-center text-white font-semibold text-sm cursor-pointer" title={`${user?.role?.role_name?.toUpperCase()}: ${user?.first_name} ${user?.last_name}`} >
+            {initials}
           </div>
+          <Button variant="secondary" size="sm" className="group" onClick={logout}>
+            <span className="group-hover:translate-x-1 transition-transform mr-4">
+              Logout
+            </span>
+            <LogOut className="w-4 h-4 group-hover:rotate-12 transition-transform duration-200" />
+          </Button>
         </div>
       </div>
     </header>

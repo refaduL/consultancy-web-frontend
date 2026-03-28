@@ -393,6 +393,7 @@ export default function ConsultationForm() {
           <div className="pt-6">
             <button
               type="submit"
+              onClick={(e) => {e.preventDefault(); console.log("Form info: ", formData );}}
               className="w-full py-4 bg-gradient-to-r from-primary-500 to-primary-300 hover:from-primary-600 hover:to-primary-500 text-white font-semibold rounded-xl shadow-md hover:shadow-lg transition-all"
             >
               Submit Consultation Request

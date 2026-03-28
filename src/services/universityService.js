@@ -44,3 +44,12 @@ export const deleteUniversity = async (universityId) => {
     console.error("Error deleting university: ", error);
   }
 };
+
+export const toggleInterestedUniversity = async (universityId) => {
+  try {
+    const res = await api.put(`/universities/${universityId}/toggle-interest`);
+    return res.data;
+  } catch (error) {
+    console.error("Error toggling interested university: ", error);
+  }
+};

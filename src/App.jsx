@@ -6,7 +6,6 @@ import About from "./pages/About";
 import AdminDashboard from "./pages/AdminDashboard";
 import AuthUI from "./pages/Authentication";
 import Contact from "./pages/Contact";
-import ConsultationForm from "./pages/FreeConsultation";
 import Home from "./pages/Home";
 import Services from "./pages/Services";
 import Universities from "./pages/Universities";
@@ -15,6 +14,8 @@ import UserDashboard from "./pages/UserDashboard";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import PublicRoute from "./routes/PublicRoute";
 import UniversityDetailPage from "./components/adminDash/universities/UniDetailPage";
+import ApplicationReviewPage from "./pages/ApplicationReviewPage";
+import ConsultationForm from "./pages/ConsultationForm";
 
 function App() {
   return (
@@ -50,6 +51,18 @@ function App() {
           </ProtectedRoute>
         }
       />
+      
+      <Route
+        path="/admindashboard/applications/:appId"
+        element={
+          <ProtectedRoute allowedRoles={["admin", "agent"]}>
+            <ApplicationReviewPage />
+          </ProtectedRoute>
+        }
+      />
+
+
+
       <Route
         path="/userdashboard"
         element={
