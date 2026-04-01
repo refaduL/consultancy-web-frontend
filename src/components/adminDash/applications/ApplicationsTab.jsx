@@ -3,12 +3,6 @@ import {useEffect, useState} from "react";
 import ApplicationsTable from "./ApplicationsTable";
 import ApplicationCard from "./ApplicationCard";
 
-// const applications = [
-//   { _id: "app_1", student: "Alex Brown",    university: "Harvard",   status: "pending",  date: "2024-01-15" },
-//   { _id: "app_2", student: "Emma Davis",    university: "Oxford",    status: "approved", date: "2024-01-14" },
-//   { _id: "app_3", student: "James Wilson",  university: "MIT",       status: "pending",  date: "2024-01-13" },
-//   { _id: "app_4", student: "Olivia Taylor", university: "Cambridge", status: "rejected", date: "2024-01-12" },
-// ];
 
 export default function ApplicationsTab({ apps }) {
   const [applications, setApplications] = useState([]);

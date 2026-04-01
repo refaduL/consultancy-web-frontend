@@ -2,6 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { CheckCircle, XCircle, Clock } from "lucide-react";
 import Badge from "../common/Badge";
+import formatDateTime from "../../../helpers/formatDateTime";
 
 export default function ApplicationsTable({ applications }) {
   const navigate = useNavigate();
@@ -16,13 +17,13 @@ export default function ApplicationsTable({ applications }) {
                 Student
               </th>
               <th className="px-5 py-3 text-left text-xs font-semibold text-slate-900 uppercase tracking-wider">
-                University
+                Email
               </th>
               <th className="px-5 py-3 text-left text-xs font-semibold text-slate-900 uppercase tracking-wider">
                 Status
               </th>
               <th className="px-5 py-3 text-left text-xs font-semibold text-slate-900 uppercase tracking-wider">
-                Date
+                Last Update
               </th>
               <th className="px-5 py-3 text-right text-xs font-semibold text-slate-900 uppercase tracking-wider">
                 Actions
@@ -37,7 +38,7 @@ export default function ApplicationsTable({ applications }) {
                 <td className="px-5 py-4">
                   <Badge status={app.status} />
                 </td>
-                <td className="px-5 py-4 text-sm text-slate-600">{app.created_at}</td>
+                <td className="px-5 py-4 text-sm text-slate-600">{formatDateTime(app.updatedAt, "date")}</td>
                 <td className="px-5 py-4">
                   <div className="flex items-center justify-end">
                     <button

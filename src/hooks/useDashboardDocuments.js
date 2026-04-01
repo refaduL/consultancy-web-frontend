@@ -33,7 +33,7 @@ export default function useDashboardDocuments(user) {
         status: doc.status || "not_uploaded",
         uploadedAt: doc.uploadedAt,
         required: doc.required ?? true,
-        adminFeedback: doc.feedback,
+        adminFeedback: doc.adminFeedback,
         url: doc.url,
       };
     });

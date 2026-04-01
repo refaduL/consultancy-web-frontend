@@ -137,7 +137,8 @@ export default function DocumentItem({ doc, onUpload, onDelete, loadingDocKey })
         {/* Admin Feedback */}
         {(doc.status === "approved" || doc.status === "rejected") && doc.adminFeedback && (
             <div className={`mt-2 p-3 rounded-lg border-l-4 ${doc.status === "approved" ? "border-green-500 bg-green-50" : "border-red-500 bg-red-50"}`}>
-            <p className="text-sm text-slate-900">{doc.adminFeedback}</p>
+                
+                <p className="text-sm text-slate-900">{doc.adminFeedback}</p>
             </div>
         )}
         </div>

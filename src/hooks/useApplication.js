@@ -73,6 +73,15 @@ export function useApplication(appId, formData) {
 
   // ── Application status actions ─────────────────────────────────────────────
 
+  const refreshApplication = useCallback(async () => {
+    try {
+      const data = await applicationService.fetchApplicationByAppId(appId);
+      setApp(data.payload.application);
+    } catch (err) {
+      console.error("Failed to refresh application:", err);
+    }
+  }, [appId]);
+
   const submitApplication = useCallback(() => {
     mutate(
       "status",
@@ -85,25 +94,37 @@ export function useApplication(appId, formData) {
     mutate(
       "status",
       (prev) => ({ ...prev, status: "accepted" }),
-      () => applicationService.updateApplicationStatusInitial(appId, "accepted"),
+      async () => {
+        applicationService.updateApplicationStatusInitial(appId, "accepted");
+        await refreshApplication();
+        return appRef.current; // Return current state after refresh
+      }
     );
-  }, [appId, mutate]);
+  }, [appId, mutate, refreshApplication]);
 
   const rejectApplication = useCallback((rejectionFeedback) => {
     mutate(
       "status",
       (prev) => ({ ...prev, status: "rejected" }),
-      () => applicationService.updateApplicationStatusInitial(appId, "rejected", rejectionFeedback),
+      async () => {
+        applicationService.updateApplicationStatusInitial(appId, "rejected", rejectionFeedback),
+        await refreshApplication();
+        return appRef.current; // Return current state after refresh
+      }
     );
-  }, [appId, mutate]);
+  }, [appId, mutate, refreshApplication]);
 
   const finalApproveApplication = useCallback(() => {
     mutate(
       "status",
       (prev) => ({ ...prev, status: "approved" }),
-      () => applicationService.updateApplicationStatusFinal(appId, "approved"),
+      async () => {
+        await applicationService.updateApplicationStatusFinal(appId, "approved");
+        await refreshApplication();
+        return appRef.current; // Return current state after refresh
+      }
     );
-  }, [appId, mutate]);
+  }, [appId, mutate, refreshApplication]);
 
   // ── Document actions ───────────────────────────────────────────────────────
 
@@ -117,9 +138,13 @@ export function useApplication(appId, formData) {
           [docKey]: { ...prev.documents[docKey], status: "approved", adminFeedback: null },
         },
       }),
-      () => applicationService.updateDocumentStatus(appId, docKey, "approved"),
+      async () => {
+        applicationService.updateDocumentStatus(appId, docKey, "approved"),
+        await refreshApplication();
+        return appRef.current; // Return current state after refresh
+      } 
     );
-  }, [appId, mutate]);
+  }, [appId, mutate, refreshApplication]);
 
   const rejectDocument = useCallback((docKey, adminFeedback) => {
     mutate(
@@ -131,9 +156,13 @@ export function useApplication(appId, formData) {
           [docKey]: { ...prev.documents[docKey], status: "rejected", adminFeedback },
         },
       }),
-      () => applicationService.updateDocumentStatus(appId, docKey, "rejected", adminFeedback),
+      async () => {
+        applicationService.updateDocumentStatus(appId, docKey, "rejected", adminFeedback),
+        await refreshApplication();
+        return appRef.current; // Return current state after refresh
+      } 
     );
-  }, [appId, mutate]);
+  }, [appId, mutate, refreshApplication]);
 
   // ── Comment actions ────────────────────────────────────────────────────────
 
@@ -150,20 +179,24 @@ export function useApplication(appId, formData) {
 
     mutate(
       "comment",
-      (prev) => ({ ...prev, comments: [...prev.comments, tempComment] }),
+      (prev) => ({ ...prev, comments: [...(prev.comments || []), tempComment] }),
       async () => {
         const savedComment = await applicationService.postComment(appId, message);
-        const current = appRef.current;
-        return {
-          ...current,
-          comments: [
-            ...current.comments.filter((c) => c._id !== tempId),
-            savedComment,
-          ],
-        };
+        // const current = appRef.current;
+        // return {
+        //   ...current,
+        //   comments: [
+        //     ...current.comments.filter((c) => c._id !== tempId),
+        //     savedComment,
+        //   ],
+        // };
+
+        // Refresh the entire application to get the real comment with proper data
+        await refreshApplication();
+        return appRef.current;
       },
     );
-  }, [appId, mutate]);
+  }, [appId, mutate, refreshApplication]);
 
   // ── Internal note actions ──────────────────────────────────────────────────
 
@@ -178,20 +211,24 @@ export function useApplication(appId, formData) {
 
     mutate(
       "note",
-      (prev) => ({ ...prev, internalNotes: [...prev.internalNotes, tempNote] }),
+      (prev) => ({ ...prev, internalNotes: [...(prev.internalNotes || []), tempNote] }),
       async () => {
         const savedNote = await applicationService.postInternalNote(appId, note);
-        const current = appRef.current;
-        return {
-          ...current,
-          internalNotes: [
-            ...current.internalNotes.filter((n) => n._id !== tempId),
-            savedNote,
-          ],
-        };
+        // const current = appRef.current;
+        // return {
+        //   ...current,
+        //   internalNotes: [
+        //     ...current.internalNotes.filter((n) => n._id !== tempId),
+        //     savedNote,
+        //   ],
+        // };
+
+        // Refresh the entire application to get the real note with proper data
+        await refreshApplication();
+        return appRef.current;
       },
     );
-  }, [appId, mutate]);
+  }, [appId, mutate, refreshApplication]);
 
   // ── Expose ─────────────────────────────────────────────────────────────────
 

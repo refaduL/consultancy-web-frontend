@@ -688,10 +688,28 @@ export default function ApplicationReviewPage() {
   if (loading) return <LoadingState />;
   if (error || !app) return <ErrorState error={error} onBack={() => navigate(-1)} />;
 
-  const docValues     = Object.values(app?.documents);
-  const uploadedCount = docValues.filter(d => d.status !== "not_uploaded").length;
-  const approvedCount = docValues.filter(d => d.status === "approved").length;
-  const totalDocs     = docValues.length;
+  if (!app.documents) {
+    return (
+      <div className="min-h-screen bg-slate-50 flex items-center justify-center">
+        <div className="flex items-center gap-2 text-sm text-slate-400">
+          <Loader2 className="w-4 h-4 animate-spin" />
+          Loading application data...
+        </div>
+      </div>
+    );
+  }
+
+  const documents = app?.documents || {};
+  const docValues = Object.values(documents);
+  const uploadedCount = docValues.filter(d => d?.status !== "not_uploaded").length;
+  const approvedCount = docValues.filter(d => d?.status === "approved").length;
+  const totalDocs = docValues.length;
+
+  // Replace the current docValues calculation with safe guards
+  // const docValues = app?.documents ? Object.values(app.documents) : [];
+  // const uploadedCount = docValues.filter(d => d?.status !== "not_uploaded").length;
+  // const approvedCount = docValues.filter(d => d?.status === "approved").length;
+  // const totalDocs = docValues.length;
 
   return (
     <div className="min-h-screen bg-slate-50">
