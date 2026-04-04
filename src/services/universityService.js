@@ -3,6 +3,7 @@ import api from "../api/axios";
 export const fetchUniversities = async () => {
   try {
     const res = await api.get("/universities");
+    console.log("Fetched universities: ", res.data.payload.universities);
     return res.data;
   } catch (error) {
     console.error("Error fetching universities: ", error);

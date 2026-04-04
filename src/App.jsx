@@ -1,21 +1,30 @@
 import { Route, Routes } from "react-router-dom";
 
+import AdminLayout from "./components/adminDash/layout/AdminLayout";
 import PlaceholderPage from "./components/common/Placeholder";
 import Layout from "./components/layout/Layout";
 import About from "./pages/About";
-import AdminDashboard from "./pages/AdminDashboard";
 import AuthUI from "./pages/Authentication";
+import ConsultationForm from "./pages/ConsultationForm";
 import Contact from "./pages/Contact";
 import Home from "./pages/Home";
 import Services from "./pages/Services";
 import Universities from "./pages/Universities";
 import UniversityDetail from "./pages/UniversityDetail";
 import UserDashboard from "./pages/UserDashboard";
+
+
+import AdminApplicationsPage from "./pages/admin/AdminApplicationsPage";
+import AdminOverviewPage from "./pages/admin/AdminOverviewPage";
+import AdminUniversitiesPage from "./pages/admin/AdminUniversitiesPage";
+import AdminUsersPage from "./pages/admin/AdminUsersPage";
+import ApplicationReviewPage from "./pages/admin/ApplicationReviewPage";
+// import UniversityDetailPage from "./pages/admin/UniDetailPage";
+
 import ProtectedRoute from "./routes/ProtectedRoute";
 import PublicRoute from "./routes/PublicRoute";
-import UniversityDetailPage from "./components/adminDash/universities/UniDetailPage";
-import ApplicationReviewPage from "./pages/ApplicationReviewPage";
-import ConsultationForm from "./pages/ConsultationForm";
+import CreateUniversityPage from "./pages/admin/CreateUniversityPage";
+import UniversityDetailPage from "./pages/admin/AdminUniversityDetails";
 
 function App() {
   return (
@@ -27,7 +36,7 @@ function App() {
         <Route path="universities" element={<Universities />} />
         <Route path="about" element={<About />} />
         <Route path="contact" element={<Contact />} />
-        <Route path="test" element={<UniversityDetailPage title="Test Page" />} />
+        {/* <Route path="test" element={<UniversityDetailPage title="Test Page" />} /> */}
         <Route path="consultation" element={<ConsultationForm />} />
 
         <Route
@@ -44,13 +53,24 @@ function App() {
 
       <Route path="/universities/:id" element={<UniversityDetail />} />
 
-      <Route
+
+
+      {/* <Route
         path="/admindashboard"
         element={
           <ProtectedRoute allowedRoles={["admin", "agent"]}>
             <AdminDashboard />
           </ProtectedRoute>
         }
+      />
+
+      <Route 
+        path="/admindashboard/universities/:id" 
+        element={
+          <ProtectedRoute allowedRoles={["admin", "agent"]}>
+            <UniversityDetailPage />
+          </ProtectedRoute>
+        } 
       />
       
       <Route
@@ -60,7 +80,7 @@ function App() {
             <ApplicationReviewPage />
           </ProtectedRoute>
         }
-      />
+      /> */}
 
 
 
@@ -72,6 +92,27 @@ function App() {
           </ProtectedRoute>
         }
       />
+
+      <Route
+        path="/admindashboard"
+        element={
+          <ProtectedRoute allowedRoles={["admin", "agent"]}>
+            <AdminLayout />
+          </ProtectedRoute>
+        }
+      >
+        <Route index element={<AdminOverviewPage />} />
+        <Route path="users" element={<AdminUsersPage />} />
+        <Route path="universities" element={<AdminUniversitiesPage />} />
+        <Route path="applications" element={<AdminApplicationsPage />} />
+
+        
+        <Route path="universities/new" element={<CreateUniversityPage />} />
+        <Route path="universities/:id" element={<UniversityDetailPage />} />
+        <Route path="universities/:id" element={<UniversityDetailPage />} />
+
+        <Route path="applications/:appId" element={<ApplicationReviewPage />} />
+      </Route>
     </Routes>
   );
 }

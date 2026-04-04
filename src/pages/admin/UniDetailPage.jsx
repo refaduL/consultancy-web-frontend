@@ -7,7 +7,7 @@ import {
   DollarSign, Clock, Users, BadgeCheck
 } from "lucide-react";
 
-// ─── Shared style tokens ───────────────────────────────────────────────────
+//  Shared style tokens 
 const inputCls =
   "w-full px-3 py-2.5 sm:px-4 sm:py-3 text-base bg-slate-50 border border-slate-200 rounded-xl text-slate-800 placeholder-slate-400 focus:outline-none focus:border-slate-400 focus:bg-white transition";
 const labelCls = "block text-sm font-medium text-slate-500 mb-1.5";
@@ -826,7 +826,7 @@ export default function UniversityDetailPage() {
     setSearchParams({ mode: "view" });
     // TODO: call API to persist
     console.log("Saving:", draft);
-  };
+  }; 
 
   const handleDiscard = () => {
     setDraft(university);
@@ -851,7 +851,7 @@ export default function UniversityDetailPage() {
 
         {/* Top bar */}
         <div className="flex items-center justify-between gap-4">
-          <button onClick={() => navigate("/admin/universities")}
+          <button onClick={() => navigate("/admindashboard?tab=universities")}
             className="flex items-center gap-2 text-base text-slate-500 hover:text-slate-800 transition-colors font-medium">
             <ArrowLeft className="w-4 h-4 sm:w-5 sm:h-5" /> Universities
           </button>

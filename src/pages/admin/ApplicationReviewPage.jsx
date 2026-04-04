@@ -1,52 +1,127 @@
 // pages/ApplicationReviewPage.jsx
-import { ArrowLeft, Award, BookOpen, Calendar, CheckCircle, CheckSquare, ChevronDown, ChevronUp, Clock, Eye, FileText, Globe, GraduationCap, Loader2, MessageSquare, Send, Shield, StickyNote, User, X, XCircle } from "lucide-react";
-import { useState, useEffect, useRef, useLayoutEffect } from "react";
+import {
+  ArrowLeft,
+  Award,
+  BookOpen,
+  Calendar,
+  CheckCircle,
+  CheckSquare,
+  ChevronDown,
+  ChevronUp,
+  Eye,
+  FileText,
+  Globe,
+  GraduationCap,
+  Loader2,
+  MessageSquare,
+  Send,
+  Shield,
+  StickyNote,
+  User,
+  X,
+  XCircle,
+} from "lucide-react";
+import { useLayoutEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { useApplication } from "../hooks/useApplication";
+import { useApplication } from "../../hooks/useApplication";
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
 // ─── Config maps ──────────────────────────────────────────────────────────────
 
 const statusConfig = {
-  draft:     { label: "Draft",     color: "bg-slate-100 text-slate-600",     dot: "bg-slate-400" },
-  submitted: { label: "Submitted", color: "bg-amber-100 text-amber-700",     dot: "bg-amber-400" },
-  accepted:  { label: "Accepted",  color: "bg-blue-100 text-blue-700",       dot: "bg-blue-500"  },
-  approved:  { label: "Approved",  color: "bg-emerald-100 text-emerald-700", dot: "bg-emerald-500" },
-  rejected:  { label: "Rejected",  color: "bg-red-100 text-red-700",         dot: "bg-red-500"   },
+  draft: {
+    label: "Draft",
+    color: "bg-slate-100 text-slate-600",
+    dot: "bg-slate-400",
+  },
+  submitted: {
+    label: "Submitted",
+    color: "bg-amber-100 text-amber-700",
+    dot: "bg-amber-400",
+  },
+  accepted: {
+    label: "Accepted",
+    color: "bg-blue-100 text-blue-700",
+    dot: "bg-blue-500",
+  },
+  approved: {
+    label: "Approved",
+    color: "bg-emerald-100 text-emerald-700",
+    dot: "bg-emerald-500",
+  },
+  rejected: {
+    label: "Rejected",
+    color: "bg-red-100 text-red-700",
+    dot: "bg-red-500",
+  },
 };
 
 const docStatusConfig = {
-  not_uploaded: { label: "Not Uploaded", bg: "bg-slate-50",   badge: "bg-slate-100 text-slate-500",     color: "text-slate-400"   },
-  uploaded:     { label: "Uploaded",     bg: "bg-blue-50",    badge: "bg-blue-100 text-blue-700",       color: "text-blue-600"    },
-  under_review: { label: "Under Review", bg: "bg-amber-50",   badge: "bg-amber-100 text-amber-700",     color: "text-amber-600"   },
-  approved:     { label: "Approved",     bg: "bg-emerald-50", badge: "bg-emerald-100 text-emerald-700", color: "text-emerald-600" },
-  rejected:     { label: "Rejected",     bg: "bg-red-50",     badge: "bg-red-100 text-red-700",         color: "text-red-600"     },
+  not_uploaded: {
+    label: "Not Uploaded",
+    bg: "bg-slate-50",
+    badge: "bg-slate-100 text-slate-500",
+    color: "text-slate-400",
+  },
+  uploaded: {
+    label: "Uploaded",
+    bg: "bg-blue-50",
+    badge: "bg-blue-100 text-blue-700",
+    color: "text-blue-600",
+  },
+  under_review: {
+    label: "Under Review",
+    bg: "bg-amber-50",
+    badge: "bg-amber-100 text-amber-700",
+    color: "text-amber-600",
+  },
+  approved: {
+    label: "Approved",
+    bg: "bg-emerald-50",
+    badge: "bg-emerald-100 text-emerald-700",
+    color: "text-emerald-600",
+  },
+  rejected: {
+    label: "Rejected",
+    bg: "bg-red-50",
+    badge: "bg-red-100 text-red-700",
+    color: "text-red-600",
+  },
 };
 
 const docLabels = {
-  transcript:              "Academic Transcript",
-  degreeCertificate:       "Degree Certificate",
-  englishTestScore:        "English Test Score",
-  statementOfPurpose:      "Statement of Purpose",
-  resume_cv:               "Resume / CV",
+  transcript: "Academic Transcript",
+  degreeCertificate: "Degree Certificate",
+  englishTestScore: "English Test Score",
+  statementOfPurpose: "Statement of Purpose",
+  resume_cv: "Resume / CV",
   letterOfRecommendation1: "Recommendation Letter 1",
   letterOfRecommendation2: "Recommendation Letter 2",
-  passportCopy:            "Passport Copy",
-  portfolio:               "Portfolio",
-  workExperienceLetter:    "Work Experience Letter",
+  passportCopy: "Passport Copy",
+  portfolio: "Portfolio",
+  workExperienceLetter: "Work Experience Letter",
 };
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
 const formatDate = (d) => {
   if (!d) return "—";
-  return new Date(d).toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" });
+  return new Date(d).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  });
 };
 
 const formatDateTime = (d) => {
   if (!d) return "—";
-  return new Date(d).toLocaleString("en-US", { month: "short", day: "numeric", hour: "2-digit", minute: "2-digit" });
+  return new Date(d).toLocaleString("en-US", {
+    month: "short",
+    day: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+  });
 };
 
 // ─── Tiny shared components ───────────────────────────────────────────────────
@@ -54,7 +129,9 @@ const formatDateTime = (d) => {
 function StatusBadge({ status }) {
   const cfg = statusConfig[status] || statusConfig.draft;
   return (
-    <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold ${cfg.color}`}>
+    <span
+      className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold ${cfg.color}`}
+    >
       <span className={`w-1.5 h-1.5 rounded-full ${cfg.dot}`} />
       {cfg.label}
     </span>
@@ -64,7 +141,9 @@ function StatusBadge({ status }) {
 function DocBadge({ status }) {
   const cfg = docStatusConfig[status] || docStatusConfig.not_uploaded;
   return (
-    <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${cfg.badge}`}>
+    <span
+      className={`text-xs font-medium px-2 py-0.5 rounded-full ${cfg.badge}`}
+    >
       {cfg.label}
     </span>
   );
@@ -73,7 +152,9 @@ function DocBadge({ status }) {
 function InfoRow({ label, value }) {
   return (
     <div className="flex items-start gap-2 py-2 border-b border-slate-50 last:border-0">
-      <span className="text-xs text-slate-400 w-40 shrink-0 pt-0.5">{label}</span>
+      <span className="text-xs text-slate-400 w-40 shrink-0 pt-0.5">
+        {label}
+      </span>
       <span className="text-sm text-slate-700 font-medium">{value || "—"}</span>
     </div>
   );
@@ -109,9 +190,17 @@ function SectionCard({ title, icon: Icon, children, defaultOpen = true }) {
           </div>
           <span className="font-semibold text-sm text-slate-800">{title}</span>
         </div>
-        {open ? <ChevronUp className="w-4 h-4 text-slate-400" /> : <ChevronDown className="w-4 h-4 text-slate-400" />}
+        {open ? (
+          <ChevronUp className="w-4 h-4 text-slate-400" />
+        ) : (
+          <ChevronDown className="w-4 h-4 text-slate-400" />
+        )}
       </button>
-      {open && <div className="px-6 pb-6 pt-1 border-t border-slate-100">{children}</div>}
+      {open && (
+        <div className="px-6 pb-6 pt-1 border-t border-slate-100">
+          {children}
+        </div>
+      )}
     </div>
   );
 }
@@ -127,46 +216,69 @@ function StudentProfile({ user }) {
           {initials}
         </div>
         <div>
-          <div className="font-bold text-slate-900">{user.first_name} {user.last_name}</div>
+          <div className="font-bold text-slate-900">
+            {user.first_name} {user.last_name}
+          </div>
           <div className="text-xs text-slate-500 flex items-center gap-1 mt-0.5">
             <Shield className="w-3 h-3 text-emerald-500" />
             {user.is_verified ? "Verified account" : "Unverified"}
           </div>
         </div>
       </div>
-      <InfoRow label="Email"                value={user.email} />
-      <InfoRow label="Phone"                value={user.phone} />
-      <InfoRow label="Date of Birth"        value={formatDate(user.date_of_birth)} />
-      <InfoRow label="Gender"               value={user.gender} />
-      <InfoRow label="Nationality"          value={user.nationality} />
+      <InfoRow label="Email" value={user.email} />
+      <InfoRow label="Phone" value={user.phone} />
+      <InfoRow label="Date of Birth" value={formatDate(user.date_of_birth)} />
+      <InfoRow label="Gender" value={user.gender} />
+      <InfoRow label="Nationality" value={user.nationality} />
       <InfoRow label="Country of Residence" value={user.country_of_residence} />
-      <InfoRow label="City / Country"       value={[user.city, user.country].filter(Boolean).join(", ")} />
-      <InfoRow label="Address"              value={user.address} />
-      <InfoRow label="Last Login"           value={formatDateTime(user.last_login)} />
+      <InfoRow
+        label="City / Country"
+        value={[user.city, user.country].filter(Boolean).join(", ")}
+      />
+      <InfoRow label="Address" value={user.address} />
+      <InfoRow label="Last Login" value={formatDateTime(user.last_login)} />
       {user.social_links?.linkedin && (
-        <InfoRow label="LinkedIn" value={
-          <a href={user.social_links.linkedin} className="text-indigo-600 hover:underline text-xs" target="_blank" rel="noreferrer">
-            {user.social_links.linkedin}
-          </a>
-        } />
+        <InfoRow
+          label="LinkedIn"
+          value={
+            <a
+              href={user.social_links.linkedin}
+              className="text-indigo-600 hover:underline text-xs"
+              target="_blank"
+              rel="noreferrer"
+            >
+              {user.social_links.linkedin}
+            </a>
+          }
+        />
       )}
     </div>
   );
 }
 
 function EducationSection({ history }) {
-  if (!history?.length) return <p className="text-xs text-slate-400 mt-3">No education history.</p>;
+  if (!history?.length)
+    return <p className="text-xs text-slate-400 mt-3">No education history.</p>;
   return (
     <div className="mt-3 space-y-3">
       {history.map((edu, i) => (
-        <div key={i} className="bg-slate-50 rounded-xl p-4 border border-slate-100">
+        <div
+          key={i}
+          className="bg-slate-50 rounded-xl p-4 border border-slate-100"
+        >
           <div className="flex items-start justify-between">
             <div>
-              <div className="font-semibold text-sm text-slate-800">{edu.institution}</div>
-              <div className="text-xs text-slate-500 mt-0.5">{edu.degree} · {edu.fieldOfStudy}</div>
+              <div className="font-semibold text-sm text-slate-800">
+                {edu.institution}
+              </div>
+              <div className="text-xs text-slate-500 mt-0.5">
+                {edu.degree} · {edu.fieldOfStudy}
+              </div>
             </div>
             <div className="text-right shrink-0 ml-3">
-              <div className="text-xs font-bold text-indigo-600">GPA {edu.gpa}</div>
+              <div className="text-xs font-bold text-indigo-600">
+                GPA {edu.gpa}
+              </div>
               <div className="text-xs text-slate-400">{edu.graduationYear}</div>
             </div>
           </div>
@@ -178,15 +290,27 @@ function EducationSection({ history }) {
 
 function TestScoresSection({ scores }) {
   const tests = ["ielts", "toefl", "gre", "gmat", "duolingo", "pte"];
-  const active = tests.filter(t => scores?.[t]?.score);
-  if (!active.length) return <p className="text-xs text-slate-400 mt-3">No test scores submitted.</p>;
+  const active = tests.filter((t) => scores?.[t]?.score);
+  if (!active.length)
+    return (
+      <p className="text-xs text-slate-400 mt-3">No test scores submitted.</p>
+    );
   return (
     <div className="mt-3 grid grid-cols-2 gap-3">
-      {active.map(t => (
-        <div key={t} className="bg-slate-50 rounded-xl p-3 border border-slate-100">
-          <div className="text-xs font-semibold text-slate-400 uppercase tracking-wider">{t}</div>
-          <div className="text-lg font-bold text-slate-800 mt-1">{scores[t].score}</div>
-          <div className="text-xs text-slate-400">{formatDate(scores[t].date)}</div>
+      {active.map((t) => (
+        <div
+          key={t}
+          className="bg-slate-50 rounded-xl p-3 border border-slate-100"
+        >
+          <div className="text-xs font-semibold text-slate-400 uppercase tracking-wider">
+            {t}
+          </div>
+          <div className="text-lg font-bold text-slate-800 mt-1">
+            {scores[t].score}
+          </div>
+          <div className="text-xs text-slate-400">
+            {formatDate(scores[t].date)}
+          </div>
         </div>
       ))}
     </div>
@@ -197,16 +321,30 @@ function PreferencesSection({ prefs, financial }) {
   return (
     <div className="mt-3 space-y-1">
       <InfoRow label="Field of Study" value={prefs?.preferredFieldOfStudy} />
-      <InfoRow label="Intake"         value={prefs?.preferredIntake} />
-      <InfoRow label="Countries"      value={prefs?.preferredCountries?.join(", ")} />
+      <InfoRow label="Intake" value={prefs?.preferredIntake} />
+      <InfoRow
+        label="Countries"
+        value={prefs?.preferredCountries?.join(", ")}
+      />
       <InfoRow label="Funding Source" value={financial?.funding_source} />
-      <InfoRow label="Budget (USD)"   value={financial?.budget_range_usd ? `$${financial.budget_range_usd}` : null} />
+      <InfoRow
+        label="Budget (USD)"
+        value={
+          financial?.budget_range_usd ? `$${financial.budget_range_usd}` : null
+        }
+      />
     </div>
   );
 }
 
-function DocumentsSection({ documents, onApprove, onReject, actionLoading, actionError }) {
-  const [feedbackDoc, setFeedbackDoc]   = useState(null);
+function DocumentsSection({
+  documents,
+  onApprove,
+  onReject,
+  actionLoading,
+  actionError,
+}) {
+  const [feedbackDoc, setFeedbackDoc] = useState(null);
   const [feedbackText, setFeedbackText] = useState("");
 
   const handleReject = (key) => {
@@ -218,34 +356,52 @@ function DocumentsSection({ documents, onApprove, onReject, actionLoading, actio
   return (
     <div className="mt-3 space-y-2">
       {Object.entries(documents).map(([key, doc]) => {
-        const cfg      = docStatusConfig[doc.status] || docStatusConfig.not_uploaded;
-        const canAct   = doc.status === "uploaded" || doc.status === "under_review";
+        const cfg = docStatusConfig[doc.status] || docStatusConfig.not_uploaded;
+        const canAct =
+          doc.status === "uploaded" || doc.status === "under_review";
         const isLoading = actionLoading[`doc_${key}`];
-        const docError  = actionError[`doc_${key}`];
+        const docError = actionError[`doc_${key}`];
 
         return (
-          <div key={key} className={`rounded-xl border p-3 ${cfg.bg} border-slate-200`}>
+          <div
+            key={key}
+            className={`rounded-xl border p-3 ${cfg.bg} border-slate-200`}
+          >
             <div className="flex items-center justify-between gap-2">
               <div className="flex items-center gap-2 min-w-0">
                 <FileText className={`w-4 h-4 shrink-0 ${cfg.color}`} />
                 <div>
-                  <div className="text-xs font-medium text-slate-700">{docLabels[key] || key}</div>
+                  <div className="text-xs font-medium text-slate-700">
+                    {docLabels[key] || key}
+                  </div>
                   <div className="flex items-center gap-2 mt-0.5">
                     <DocBadge status={doc.status} />
-                    {!doc.required && <span className="text-xs text-slate-400">Optional</span>}
-                    {doc.uploadedAt && <span className="text-xs text-slate-400">{formatDate(doc.uploadedAt)}</span>}
+                    {!doc.required && (
+                      <span className="text-xs text-slate-400">Optional</span>
+                    )}
+                    {doc.uploadedAt && (
+                      <span className="text-xs text-slate-400">
+                        {formatDate(doc.uploadedAt)}
+                      </span>
+                    )}
                   </div>
                 </div>
               </div>
 
               <div className="flex items-center gap-1.5 shrink-0">
-                {isLoading && <Spinner className="w-3.5 h-3.5 text-slate-400" />}
+                {isLoading && (
+                  <Spinner className="w-3.5 h-3.5 text-slate-400" />
+                )}
 
                 {doc.url && (
                   <a href={doc.url} target="_blank" rel="noreferrer">
-                    <button 
-                      onClick={() => window.open(`${BACKEND_URL}${doc.url}`, "_blank")}
-                      className="p-1.5 rounded-lg bg-white border border-slate-200 hover:bg-indigo-50 hover:border-indigo-200 transition-colors" title="View">
+                    <button
+                      onClick={() =>
+                        window.open(`${BACKEND_URL}${doc.url}`, "_blank")
+                      }
+                      className="p-1.5 rounded-lg bg-white border border-slate-200 hover:bg-indigo-50 hover:border-indigo-200 transition-colors"
+                      title="View"
+                    >
                       <Eye className="w-3.5 h-3.5 text-slate-500" />
                     </button>
                   </a>
@@ -261,7 +417,9 @@ function DocumentsSection({ documents, onApprove, onReject, actionLoading, actio
                       <CheckSquare className="w-3.5 h-3.5 text-emerald-600" />
                     </button>
                     <button
-                      onClick={() => setFeedbackDoc(feedbackDoc === key ? null : key)}
+                      onClick={() =>
+                        setFeedbackDoc(feedbackDoc === key ? null : key)
+                      }
                       className="p-1.5 rounded-lg bg-white border border-slate-200 hover:bg-red-50 hover:border-red-200 transition-colors"
                       title="Reject with feedback"
                     >
@@ -278,7 +436,7 @@ function DocumentsSection({ documents, onApprove, onReject, actionLoading, actio
                 <input
                   type="text"
                   value={feedbackText}
-                  onChange={e => setFeedbackText(e.target.value)}
+                  onChange={(e) => setFeedbackText(e.target.value)}
                   placeholder="Reason for rejection..."
                   className="flex-1 text-xs px-3 py-2 bg-white border border-red-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-300"
                 />
@@ -294,7 +452,8 @@ function DocumentsSection({ documents, onApprove, onReject, actionLoading, actio
 
             {doc.adminFeedback && (
               <div className="mt-2 text-xs text-red-600 bg-red-50 border border-red-100 rounded-lg px-3 py-1.5">
-                <span className="font-medium">Feedback:</span> {doc.adminFeedback}
+                <span className="font-medium">Feedback:</span>{" "}
+                {doc.adminFeedback}
               </div>
             )}
 
@@ -317,23 +476,39 @@ function CommentsSection({ comments, onSend, isSending, sendError }) {
 
   return (
     <div className="mt-3 space-y-3">
-      {comments.map(c => {
+      {comments.map((c) => {
         const isAgent = c.sender.role === "agent";
-        const isTemp  = c._id?.startsWith("temp_");
+        const isTemp = c._id?.startsWith("temp_");
         return (
-          <div key={c._id} className={`flex gap-3 ${isAgent ? "flex-row-reverse" : ""}`}>
-            <div className={`w-8 h-8 rounded-full flex items-center justify-center text-white text-xs font-bold shrink-0 ${isAgent ? "bg-indigo-500" : "bg-slate-400"}`}>
+          <div
+            key={c._id}
+            className={`flex gap-3 ${isAgent ? "flex-row-reverse" : ""}`}
+          >
+            <div
+              className={`w-8 h-8 rounded-full flex items-center justify-center text-white text-xs font-bold shrink-0 ${isAgent ? "bg-indigo-500" : "bg-slate-400"}`}
+            >
               {c.sender.first_name[0]}
             </div>
-            <div className={`max-w-xs flex flex-col ${isAgent ? "items-end" : "items-start"}`}>
-              <div className={`text-xs font-medium mb-1 text-slate-500 ${isAgent ? "text-right" : ""}`}>
-                {c.sender.first_name} {c.sender.last_name} · {formatDateTime(c.createdAt)}
+            <div
+              className={`max-w-xs flex flex-col ${isAgent ? "items-end" : "items-start"}`}
+            >
+              <div
+                className={`text-xs font-medium mb-1 text-slate-500 ${isAgent ? "text-right" : ""}`}
+              >
+                {c.sender.first_name} {c.sender.last_name} ·{" "}
+                {formatDateTime(c.createdAt)}
               </div>
-              <div className={`text-xs text-slate-700 px-3 py-2 rounded-xl leading-relaxed transition-opacity ${
-                isAgent ? "bg-indigo-50 border border-indigo-100" : "bg-slate-100 border border-slate-200"
-              } ${isTemp ? "opacity-60" : "opacity-100"}`}>
+              <div
+                className={`text-xs text-slate-700 px-3 py-2 rounded-xl leading-relaxed transition-opacity ${
+                  isAgent
+                    ? "bg-indigo-50 border border-indigo-100"
+                    : "bg-slate-100 border border-slate-200"
+                } ${isTemp ? "opacity-60" : "opacity-100"}`}
+              >
                 {c.message}
-                {isTemp && <span className="ml-1 text-slate-400">·sending</span>}
+                {isTemp && (
+                  <span className="ml-1 text-slate-400">·sending</span>
+                )}
               </div>
             </div>
           </div>
@@ -345,8 +520,8 @@ function CommentsSection({ comments, onSend, isSending, sendError }) {
           <input
             type="text"
             value={msg}
-            onChange={e => setMsg(e.target.value)}
-            onKeyDown={e => e.key === "Enter" && !isSending && handleSend()}
+            onChange={(e) => setMsg(e.target.value)}
+            onKeyDown={(e) => e.key === "Enter" && !isSending && handleSend()}
             placeholder="Reply to student..."
             disabled={isSending}
             className="flex-1 text-xs px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-300 disabled:opacity-60"
@@ -376,13 +551,20 @@ function InternalNotesSection({ notes, onAdd, isAdding, addError }) {
 
   return (
     <div className="mt-3 space-y-3">
-      {notes.map(n => {
+      {notes.map((n) => {
         const isTemp = n._id?.startsWith("temp_");
         return (
-          <div key={n._id} className={`bg-amber-50 border border-amber-100 rounded-xl p-3 transition-opacity ${isTemp ? "opacity-60" : "opacity-100"}`}>
+          <div
+            key={n._id}
+            className={`bg-amber-50 border border-amber-100 rounded-xl p-3 transition-opacity ${isTemp ? "opacity-60" : "opacity-100"}`}
+          >
             <div className="flex items-center justify-between mb-1">
-              <span className="text-xs font-semibold text-amber-700">{n.agent.first_name} {n.agent.last_name}</span>
-              <span className="text-xs text-amber-500">{formatDateTime(n.createdAt)}</span>
+              <span className="text-xs font-semibold text-amber-700">
+                {n.agent.first_name} {n.agent.last_name}
+              </span>
+              <span className="text-xs text-amber-500">
+                {formatDateTime(n.createdAt)}
+              </span>
             </div>
             <p className="text-xs text-amber-800 leading-relaxed">{n.note}</p>
           </div>
@@ -394,8 +576,8 @@ function InternalNotesSection({ notes, onAdd, isAdding, addError }) {
           <input
             type="text"
             value={note}
-            onChange={e => setNote(e.target.value)}
-            onKeyDown={e => e.key === "Enter" && !isAdding && handleAdd()}
+            onChange={(e) => setNote(e.target.value)}
+            onKeyDown={(e) => e.key === "Enter" && !isAdding && handleAdd()}
             placeholder="Add internal note (agent-only)..."
             disabled={isAdding}
             className="flex-1 text-xs px-3 py-2 bg-amber-50 border border-amber-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-300 disabled:opacity-60"
@@ -418,30 +600,44 @@ function ApplicationTimeline({ timeline = {}, status }) {
   const containerRef = useRef(null);
   const bubbleRefs = useRef([]);
   const [trackStyle, setTrackStyle] = useState({
-    bgLeft: 0, bgWidth: 0, fillLeft: 0, fillWidth: 0,
+    bgLeft: 0,
+    bgWidth: 0,
+    fillLeft: 0,
+    fillWidth: 0,
   });
 
   const stages = [
-    { key: "draft",     label: "Draft",          date: null },
-    { key: "submitted", label: "Submitted",       date: timeline?.submittedAt ?? null },
+    { key: "draft", label: "Draft", date: null },
+    {
+      key: "submitted",
+      label: "Submitted",
+      date: timeline?.submittedAt ?? null,
+    },
     {
       key: "review",
       label:
-        status === "rejected" && !timeline?.approvedAt ? "Rejected"
-        : status === "accepted" ? "Accepted"
-        : "In review",
+        status === "rejected" && !timeline?.approvedAt
+          ? "Rejected"
+          : status === "accepted"
+            ? "Accepted"
+            : "In review",
       date: timeline?.acceptedAt ?? timeline?.rejectedAt ?? null,
     },
-    { key: "approved",  label: "Final approval",  date: timeline?.approvedAt ?? null },
+    {
+      key: "approved",
+      label: "Final approval",
+      date: timeline?.approvedAt ?? null,
+    },
   ];
 
   let lastDone = 0;
   if (timeline?.submittedAt) lastDone = 1;
-  if (timeline?.acceptedAt || (status === "rejected" && !timeline?.approvedAt)) lastDone = 2;
+  if (timeline?.acceptedAt || (status === "rejected" && !timeline?.approvedAt))
+    lastDone = 2;
   if (timeline?.approvedAt) lastDone = 3;
 
   const isTerminal = status === "accepted" || status === "rejected";
-  const isReject   = status === "rejected";
+  const isReject = status === "rejected";
 
   useLayoutEffect(() => {
     function measure() {
@@ -450,14 +646,14 @@ function ApplicationTimeline({ timeline = {}, status }) {
       const bubbles = bubbleRefs.current.filter(Boolean);
       if (bubbles.length < 2) return;
 
-      const ctRect  = container.getBoundingClientRect();
+      const ctRect = container.getBoundingClientRect();
       const centers = bubbles.map((b) => {
         const r = b.getBoundingClientRect();
         return r.left + r.width / 2 - ctRect.left;
       });
 
-      const first   = centers[0];
-      const last    = centers[centers.length - 1];
+      const first = centers[0];
+      const last = centers[centers.length - 1];
       const bgWidth = last - first;
 
       let fillWidth = 0;
@@ -469,7 +665,7 @@ function ApplicationTimeline({ timeline = {}, status }) {
         const doneCx = centers[lastDone];
         const nextCx = centers[Math.min(lastDone + 1, stages.length - 1)];
         const fillTo = isTerminal ? doneCx : (doneCx + nextCx) / 2;
-        fillWidth    = fillTo - first;
+        fillWidth = fillTo - first;
       }
 
       setTrackStyle({ bgLeft: first, bgWidth, fillLeft: first, fillWidth });
@@ -482,13 +678,16 @@ function ApplicationTimeline({ timeline = {}, status }) {
   }, [lastDone, isTerminal, stages.length]);
 
   return (
-    <div ref={containerRef} className="relative flex items-start w-full mt-6 px-1">
+    <div
+      ref={containerRef}
+      className="relative flex items-start w-full mt-6 px-1"
+    >
       {/* Background track */}
       <div
         className="absolute top-[19px] h-0.5 rounded-full pointer-events-none"
         style={{
-          left:       trackStyle.bgLeft,
-          width:      trackStyle.bgWidth,
+          left: trackStyle.bgLeft,
+          width: trackStyle.bgWidth,
           background: "var(--color-border-tertiary, #e2e8f0)",
         }}
       />
@@ -497,8 +696,8 @@ function ApplicationTimeline({ timeline = {}, status }) {
       <div
         className="absolute top-[19px] h-0.5 rounded-full pointer-events-none transition-all duration-700 ease-in-out"
         style={{
-          left:       trackStyle.fillLeft,
-          width:      trackStyle.fillWidth,
+          left: trackStyle.fillLeft,
+          width: trackStyle.fillWidth,
           background: isReject
             ? "linear-gradient(to right, #6366f1, #ef4444)"
             : "#6366f1",
@@ -512,14 +711,16 @@ function ApplicationTimeline({ timeline = {}, status }) {
           stage.key === "review" && isReject && !timeline?.approvedAt;
 
         let bubbleCls = "";
-        let icon      = null;
+        let icon = null;
 
         if (isRejectNode) {
           bubbleCls = "bg-red-500 border-red-500";
           icon = <XCircle className="w-4 h-4 text-white" strokeWidth={2.5} />;
         } else if (done) {
           bubbleCls = "bg-indigo-500 border-indigo-500";
-          icon = <CheckCircle className="w-4 h-4 text-white" strokeWidth={2.5} />;
+          icon = (
+            <CheckCircle className="w-4 h-4 text-white" strokeWidth={2.5} />
+          );
         } else if (isNext) {
           bubbleCls = "bg-white border-indigo-300 animate-pulse";
           icon = <div className="w-2 h-2 rounded-full bg-indigo-300" />;
@@ -528,13 +729,19 @@ function ApplicationTimeline({ timeline = {}, status }) {
           icon = <div className="w-2 h-2 rounded-full bg-slate-300" />;
         }
 
-        const labelCls = isRejectNode ? "text-red-500"
-          : done                      ? "text-slate-800"
-          : isNext                    ? "text-indigo-500"
-          :                             "text-slate-400";
+        const labelCls = isRejectNode
+          ? "text-red-500"
+          : done
+            ? "text-slate-800"
+            : isNext
+              ? "text-indigo-500"
+              : "text-slate-400";
 
         return (
-          <div key={stage.key} className="flex-1 flex flex-col items-center relative z-10">
+          <div
+            key={stage.key}
+            className="flex-1 flex flex-col items-center relative z-10"
+          >
             <div
               ref={(el) => (bubbleRefs.current[i] = el)}
               className={`w-10 h-10 rounded-full flex items-center justify-center border-2 transition-all duration-500 ${bubbleCls}`}
@@ -542,7 +749,9 @@ function ApplicationTimeline({ timeline = {}, status }) {
               {icon}
             </div>
             <div className="text-center mt-2 px-1 max-w-[80px]">
-              <p className={`text-[11.5px] font-medium leading-snug ${labelCls}`}>
+              <p
+                className={`text-[11.5px] font-medium leading-snug ${labelCls}`}
+              >
                 {stage.label}
               </p>
               {stage.date && (
@@ -558,9 +767,17 @@ function ApplicationTimeline({ timeline = {}, status }) {
   );
 }
 
-function StatusActions({ status, onAccept, onReject, onFinalApprove, isLoading, error, rejectionFeedback= "" }) {
+function StatusActions({
+  status,
+  onAccept,
+  onReject,
+  onFinalApprove,
+  isLoading,
+  error,
+  rejectionFeedback = "",
+}) {
   const [showRejectInput, setShowRejectInput] = useState(false);
-  const [feedback, setFeedback]               = useState("");
+  const [feedback, setFeedback] = useState("");
 
   const handleReject = () => {
     onReject(feedback);
@@ -593,7 +810,7 @@ function StatusActions({ status, onAccept, onReject, onFinalApprove, isLoading, 
             <div className="flex flex-col gap-1.5">
               <textarea
                 value={feedback}
-                onChange={e => setFeedback(e.target.value)}
+                onChange={(e) => setFeedback(e.target.value)}
                 placeholder="Rejection reason (required)..."
                 rows={2}
                 className="text-xs px-3 py-2 bg-white border border-red-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-300 resize-none"
@@ -635,7 +852,8 @@ function StatusActions({ status, onAccept, onReject, onFinalApprove, isLoading, 
 
           {status === "rejected" && (
             <div className="w-full max-w-[380px] px-3 py-2 text-xs text-red-600 bg-red-50 border border-red-200 rounded-lg shadow-sm break-words">
-              <span className="font-medium">Reason:</span> {rejectionFeedback || "No reason provided."}
+              <span className="font-medium">Reason:</span>{" "}
+              {rejectionFeedback || "No reason provided."}
             </div>
           )}
         </div>
@@ -662,8 +880,13 @@ function LoadingState() {
 function ErrorState({ error, onBack }) {
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col items-center justify-center gap-3">
-      <p className="text-sm text-red-500">{error || "Application not found."}</p>
-      <button onClick={onBack} className="text-xs text-indigo-600 hover:underline">
+      <p className="text-sm text-red-500">
+        {error || "Application not found."}
+      </p>
+      <button
+        onClick={onBack}
+        className="text-xs text-indigo-600 hover:underline"
+      >
         Go back
       </button>
     </div>
@@ -673,20 +896,27 @@ function ErrorState({ error, onBack }) {
 // ─── Main page ────────────────────────────────────────────────────────────────
 
 export default function ApplicationReviewPage() {
-  const { appId }  = useParams();
-  const navigate   = useNavigate();
+  const { appId } = useParams();
+  const navigate = useNavigate();
 
   const {
-    app, loading, error,
-    actionLoading, actionError,
-    acceptApplication, rejectApplication,
+    app,
+    loading,
+    error,
+    actionLoading,
+    actionError,
+    acceptApplication,
+    rejectApplication,
     finalApproveApplication,
-    approveDocument, rejectDocument,
-    sendComment, addInternalNote
+    approveDocument,
+    rejectDocument,
+    sendComment,
+    addInternalNote,
   } = useApplication(appId, null);
 
   if (loading) return <LoadingState />;
-  if (error || !app) return <ErrorState error={error} onBack={() => navigate(-1)} />;
+  if (error || !app)
+    return <ErrorState error={error} onBack={() => navigate(-1)} />;
 
   if (!app.documents) {
     return (
@@ -701,8 +931,12 @@ export default function ApplicationReviewPage() {
 
   const documents = app?.documents || {};
   const docValues = Object.values(documents);
-  const uploadedCount = docValues.filter(d => d?.status !== "not_uploaded").length;
-  const approvedCount = docValues.filter(d => d?.status === "approved").length;
+  const uploadedCount = docValues.filter(
+    (d) => d?.status !== "not_uploaded",
+  ).length;
+  const approvedCount = docValues.filter(
+    (d) => d?.status === "approved",
+  ).length;
   const totalDocs = docValues.length;
 
   // Replace the current docValues calculation with safe guards
@@ -713,7 +947,6 @@ export default function ApplicationReviewPage() {
 
   return (
     <div className="min-h-screen bg-slate-50">
-
       {/* Sticky top bar */}
       <div className="sticky top-0 z-20 bg-white border-b border-slate-200 px-4 sm:px-6 py-3">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
@@ -729,14 +962,13 @@ export default function ApplicationReviewPage() {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6 space-y-6">
-
         {/* Hero card */}
         <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm">
           <div className="flex flex-col sm:flex-row sm:items-start gap-4">
-
             {/* Avatar */}
             <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-indigo-400 to-violet-500 flex items-center justify-center text-white font-bold text-xl shadow-lg shrink-0">
-              {app.user.first_name[0]}{app.user.last_name?.[0] || ""}
+              {app.user.first_name[0]}
+              {app.user.last_name?.[0] || ""}
             </div>
 
             {/* Name + meta chips */}
@@ -746,7 +978,8 @@ export default function ApplicationReviewPage() {
               </h1>
               <p className="text-sm text-slate-500 mt-0.5">
                 {app.user.email}
-                {app.preferences?.preferredFieldOfStudy && ` · ${app.preferences.preferredFieldOfStudy}`}
+                {app.preferences?.preferredFieldOfStudy &&
+                  ` · ${app.preferences.preferredFieldOfStudy}`}
               </p>
               <div className="flex flex-wrap gap-2 mt-3">
                 <span className="flex items-center gap-1.5 text-xs text-slate-500 bg-slate-50 border border-slate-200 px-3 py-1.5 rounded-lg">
@@ -789,14 +1022,16 @@ export default function ApplicationReviewPage() {
 
         {/* 3-column content grid */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
-
           {/* Left */}
           <div className="space-y-4">
             <SectionCard title="Student Profile" icon={User}>
               <StudentProfile user={app.user} />
             </SectionCard>
             <SectionCard title="Preferences & Finances" icon={Globe}>
-              <PreferencesSection prefs={app.preferences} financial={app.financial_info} />
+              <PreferencesSection
+                prefs={app.preferences}
+                financial={app.financial_info}
+              />
             </SectionCard>
           </div>
 
@@ -808,7 +1043,11 @@ export default function ApplicationReviewPage() {
             <SectionCard title="Test Scores" icon={BookOpen}>
               <TestScoresSection scores={app.testScores} />
             </SectionCard>
-            <SectionCard title="Internal Notes" icon={StickyNote} defaultOpen={false}>
+            <SectionCard
+              title="Internal Notes"
+              icon={StickyNote}
+              defaultOpen={false}
+            >
               <InternalNotesSection
                 notes={app.internalNotes}
                 onAdd={addInternalNote}
@@ -838,7 +1077,6 @@ export default function ApplicationReviewPage() {
               />
             </SectionCard>
           </div>
-
         </div>
       </div>
     </div>
