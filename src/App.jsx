@@ -9,6 +9,10 @@ import ConsultationForm from "./pages/ConsultationForm";
 import Contact from "./pages/Contact";
 import Home from "./pages/Home";
 import Services from "./pages/Services";
+import LanguageTestPrep from "./pages/services/LanguageTestPrep";
+import VisaAssistance from "./pages/services/VisaAssistanceDetail";
+import ScholarshipGuidance from "./pages/services/ScholarshipGuidance";
+import UniversityAdmissions from "./pages/services/UniversityAdmissionDetail";
 import Universities from "./pages/Universities";
 import UniversityDetail from "./pages/UniversityDetail";
 import UserDashboard from "./pages/UserDashboard";
@@ -25,6 +29,9 @@ import ProtectedRoute from "./routes/ProtectedRoute";
 import PublicRoute from "./routes/PublicRoute";
 import CreateUniversityPage from "./pages/admin/CreateUniversityPage";
 import UniversityDetailPage from "./pages/admin/AdminUniversityDetails";
+import CareerCounseling from "./pages/services/CareerCounseling";
+import StudyAbroadBlog from "./pages/services/StudyAbroadBlog";
+import DocumentReviewDetails from "./pages/services/DocumentReviewDetails";
 
 function App() {
   return (
@@ -33,11 +40,16 @@ function App() {
         <Route index element={<Home />} />
         <Route path="home" element={<Home />} />
         <Route path="services" element={<Services />} />
+        <Route path="services/university-admissions" element={<UniversityAdmissions />} />
+        <Route path="services/scholarship-guidance" element={<ScholarshipGuidance />} />
+        <Route path="services/career-counseling" element={<CareerCounseling />} />
+        <Route path="services/visa-assistance" element={<VisaAssistance />} />
+        <Route path="services/document-review" element={<DocumentReviewDetails />} />
+        <Route path="services/language-test-prep" element={<LanguageTestPrep />} />
         <Route path="universities" element={<Universities />} />
         <Route path="about" element={<About />} />
         <Route path="contact" element={<Contact />} />
-        {/* <Route path="test" element={<UniversityDetailPage title="Test Page" />} /> */}
-        <Route path="consultation" element={<ConsultationForm />} />
+        {/* <Route path="consultation" element={<ConsultationForm />} /> */}
 
         <Route
           path="login"
@@ -82,6 +94,14 @@ function App() {
         }
       /> */}
 
+        <Route 
+          path="consultation" 
+          element={
+            <ProtectedRoute allowedRoles={["student"]} >
+              <ConsultationForm />
+            </ProtectedRoute>
+          } 
+        />
 
 
       <Route

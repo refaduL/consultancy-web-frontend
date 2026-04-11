@@ -3,28 +3,31 @@ import {
   ArrowRight,
   BookOpen,
   FileText,
+  FileCheck,
   Globe,
   GraduationCap,
+  Newspaper,
   UserCheck,
   Users,
 } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const services = [
   {
     id: 1,
     title: "University Admissions",
-    description:
-      "End-to-end guidance for undergraduate and postgraduate admissions across top global universities.",
+    description: "Free guidance and support for university applications. Get expert help with university selection, documents, and applications.",
     icon: GraduationCap,
     gradient: "from-indigo-500 to-purple-500",
+    path: "university-admissions" 
   },
   {
     id: 2,
     title: "Visa Assistance",
-    description:
-      "Accurate documentation, interview preparation, and visa filing support with high success rates.",
+    description: "Complete visa documentation support, interview preparation, and application guidance for your study visa.",
     icon: Globe,
     gradient: "from-emerald-500 to-teal-500",
+    path: "visa-assistance"
   },
   {
     id: 3,
@@ -33,34 +36,53 @@ const services = [
       "IELTS, TOEFL, GRE, GMAT coaching with structured study plans and expert mentors.",
     icon: BookOpen,
     gradient: "from-orange-500 to-amber-500",
+    path: "language-test-prep"
   },
   {
     id: 4,
     title: "Scholarship Guidance",
-    description:
-      "Discover merit-based and need-based scholarships to significantly reduce education costs.",
+    description: "Discover merit-based and need-based scholarships to significantly reduce education costs. Get expert help to find and apply for scholarships.",
     icon: FileText,
     gradient: "from-pink-500 to-rose-500",
+    path: "scholarship-guidance"
   },
   {
     id: 5,
     title: "Career Counseling",
-    description:
-      "Personalized career roadmaps aligning education choices with long-term professional goals.",
+    description: "One-on-one career guidance sessions to help you choose the right path based on your interests, skills, and goals.",
     icon: UserCheck,
     gradient: "from-sky-500 to-blue-500",
+    path: "career-counseling"
   },
   {
     id: 6,
-    title: "Pre-departure Support",
-    description:
-      "Travel, accommodation, cultural guidance, and onboarding for a smooth transition abroad.",
-    icon: Users,
+    title: "Document Review",
+    description: "Professional review of your academic documents with personalized feedback and consultation for study abroad applications.",
+    icon: FileCheck,
     gradient: "from-violet-500 to-fuchsia-500",
+    path: "document-review"
   },
+  // {
+  //   id: 6,
+  //   title: "Study Abroad Blog",
+  //   description: "Curated articles, tips, and experiences from successful students.",
+  //   icon: Newspaper,
+  //   gradient: "from-violet-500 to-fuchsia-500",
+  //   path: "study-abroad-blog",
+  //   details: {
+  //     content: ["Success stories", "Tips & tricks", "Country guides"],
+  //     format: "Weekly newsletter + online access"
+  //   }
+  // },
 ];
 
 export default function ServicesPreview() {
+   const navigate = useNavigate();
+
+  const handleLearnMore = (servicePath) => {
+    navigate(`${servicePath}`);
+  };
+
   return (
     <section className="relative py-24 px-4 sm:px-6 lg:px-16 bg-gradient-to-b from-teal-50 via-white to-white overflow-hidden">
       {/* Decorative blur */}
@@ -109,7 +131,9 @@ export default function ServicesPreview() {
                 </p>
 
                 {/* CTA */}
-                <button className="inline-flex items-center gap-2 text-primary-600 font-medium group-hover:gap-3 transition-all">
+                <button 
+                onClick={() => handleLearnMore(service.path)}
+                className="inline-flex items-center gap-2 text-primary-600 font-medium group-hover:gap-3 transition-all">
                   Learn More
                   <ArrowRight size={16} />
                 </button>

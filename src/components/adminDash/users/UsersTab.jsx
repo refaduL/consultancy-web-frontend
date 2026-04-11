@@ -3,7 +3,7 @@ import { Plus } from "lucide-react";
 import UsersTable from "./UsersTable";
 import UserCard from "./UserCard";
 
-export default function UsersTab({ users, onDeleteUser }) {
+export default function UsersTab({ users, verifyingUserId, onVerifyUser, onDeleteUser }) {
   return (
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
@@ -20,13 +20,13 @@ export default function UsersTab({ users, onDeleteUser }) {
       {/* Mobile Card View */}
       <div className="md:hidden space-y-3">
         {users.map((user) => (
-          <UserCard key={user._id} user={user} />
+          <UserCard key={user._id} user={user} onVerifyUser={onVerifyUser} onDeleteUser={onDeleteUser} verifyingUserId={verifyingUserId} />
         ))}
       </div>
 
       {/* Desktop Table View */}
       <div className="hidden md:block">
-        <UsersTable users={users} onDeleteUser={onDeleteUser} />
+        <UsersTable users={users} onVerifyUser={onVerifyUser} onDeleteUser={onDeleteUser} verifyingUserId={verifyingUserId} />
       </div>
     </div>
   );

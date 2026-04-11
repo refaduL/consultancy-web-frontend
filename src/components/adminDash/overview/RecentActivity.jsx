@@ -13,10 +13,10 @@ export default function RecentActivity({ recentUsers, recentUniversities }) {
               className="flex items-center justify-between p-3 bg-slate-50 rounded-lg hover:bg-slate-100 transition-colors"
             >
               <div className="min-w-0 flex-1">
-                <div className="font-semibold text-sm text-slate-900 truncate">{user.name}</div>
+                <div className="font-semibold text-sm text-slate-900 truncate">{user.first_name} {user.last_name}</div>
                 <div className="text-xs text-slate-600 truncate">{user.email}</div>
               </div>
-              <Badge status={user.applications[0]?.status || "draft"} />
+              <Badge status={user.applications[0]?.status || "draft"} />             
             </div>
           ))}
         </div>

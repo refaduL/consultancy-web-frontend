@@ -25,6 +25,18 @@ export const activateUserAccount = async (token) => {
 };
 
 /**
+ * VERIFY USER EMAIL BY ADMIN
+ */
+export const verifyUserEmailByAdmin = async (email) => {
+  try {
+    const { data } = await api.post(`/auth/verify-by-email`, { email });
+    return data;
+  } catch (error) {
+    throw error.response?.data?.message || "Email verification failed";
+  }
+};
+
+/**
  * LOGIN USER
  * Cookie will be automatically set by backend (HttpOnly)
  */

@@ -221,7 +221,7 @@ function StudentProfile({ user }) {
           </div>
           <div className="text-xs text-slate-500 flex items-center gap-1 mt-0.5">
             <Shield className="w-3 h-3 text-emerald-500" />
-            {user.is_verified ? "Verified account" : "Unverified"}
+            {user.is_verified ? "Verified" : "Unverified"}
           </div>
         </div>
       </div>
@@ -1043,7 +1043,7 @@ export default function ApplicationReviewPage() {
             <SectionCard title="Test Scores" icon={BookOpen}>
               <TestScoresSection scores={app.testScores} />
             </SectionCard>
-            <SectionCard
+            {/* <SectionCard
               title="Internal Notes"
               icon={StickyNote}
               defaultOpen={false}
@@ -1054,7 +1054,7 @@ export default function ApplicationReviewPage() {
                 isAdding={actionLoading.note}
                 addError={actionError.note}
               />
-            </SectionCard>
+            </SectionCard> */}
           </div>
 
           {/* Right */}
@@ -1068,14 +1068,14 @@ export default function ApplicationReviewPage() {
                 actionError={actionError}
               />
             </SectionCard>
-            <SectionCard title="Comments" icon={MessageSquare}>
+            {/* <SectionCard title="Comments" icon={MessageSquare}>
               <CommentsSection
                 comments={app.comments}
                 onSend={sendComment}
                 isSending={actionLoading.comment}
                 sendError={actionError.comment}
               />
-            </SectionCard>
+            </SectionCard> */}
           </div>
         </div>
       </div>
