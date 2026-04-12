@@ -36,10 +36,26 @@ function LoginForm({ onSwitch }) {
         description: `Welcome back, ${user.name}!`,
       });
 
-      if (user.role === "student") {
-        navigate("/userdashboard");
-      } else if (user.role === "agent" || user.role === "admin") {
-        navigate("/admindashboard");
+      const redirectPath = location.state?.from || sessionStorage.getItem("redirectAfterLogin") || "/";
+      const redirectHash = sessionStorage.getItem("redirectHash") || "";
+      sessionStorage.removeItem("redirectAfterLogin");
+      sessionStorage.removeItem("redirectHash");
+      
+      let finalPath = redirectPath;
+      
+      // If there's a custom redirect path, use it regardless of role
+      if (redirectPath !== "/") {
+        finalPath = redirectPath + redirectHash;
+        console.log("Redirecting to custom path:", finalPath);
+        // Use window.location for hash navigation
+        window.location.href = finalPath;
+      } else {
+        if (user.role === "student") {
+          finalPath = "/userdashboard";
+        } else if (user.role === "agent" || user.role === "admin") {
+          finalPath = "/admindashboard";
+        }
+        navigate(finalPath, { replace: true });
       }
       
     } catch (errMsg) {

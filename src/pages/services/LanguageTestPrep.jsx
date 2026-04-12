@@ -1,10 +1,13 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useState, useEffect, useRef } from "react";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import {
   ArrowRight, CheckCircle, FileText, Clock, Award,
   Users, BookOpen, Target, Calendar, Star, X,
   Headphones, Mic, PenTool, MessageCircle, ChevronRight, Sparkles
 } from "lucide-react";
+import { submitEnrollmentForm } from "../../services/enrollmentService";
+import { useToast } from "../../hooks/useToast";
+import { useAuth } from "../../hooks/useAuth";
 
 // ─── shared style tokens ─────────────────────────────────────────────────
 const inputCls =
@@ -136,17 +139,46 @@ const faqs = [
   { q: "Is there a money-back guarantee?", a: "Yes. If you're not satisfied after the first week, we issue a full refund — no questions asked." },
 ];
 
-// ─── Enrollment Modal ─────────────────────────────────────────────────────
+// Enrollment Modal
 function EnrollModal({ course, onClose }) {
   const [form, setForm] = useState({
     fullName: "", email: "", phone: "", preferredBatch: "",
     currentScore: "", targetScore: "", message: "",
   });
   const set = (e) => setForm((f) => ({ ...f, [e.target.name]: e.target.value }));
-  const submit = (e) => {
+  
+  const [loading, setLoading] = useState(false);
+  const [error, setError]     = useState(null);
+
+  const { addToast } = useToast();
+
+  const submit = async (e) => {
     e.preventDefault();
-    alert(`Enrollment submitted for ${course.name}! Our team will contact you within 24 hours.`);
-    onClose();
+    setLoading(true);
+    setError(null);
+
+    try {
+      await submitEnrollmentForm({
+        courseId:     course.id,        // "ielts" | "toefl" | "pte"
+        courseName:   `${course.name} Preparation`,
+        batchName:    form.preferredBatch,
+        currentScore: form.currentScore || undefined,
+        targetScore:  form.targetScore  || undefined,
+        notes:        form.notes        || undefined,
+      });
+
+      onClose();
+      addToast({
+        type: "success",
+        title: "Enrollment submitted!",
+        description: "We'll contact you within 24 hours to confirm and share payment details.",
+      })
+    } catch (err) {
+      const msg = err.response?.data?.message || "Submission failed. Please try again.";
+      setError(msg);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -237,16 +269,36 @@ function EnrollModal({ course, onClose }) {
         </form>
 
         {/* Footer */}
-        <div className="px-6 py-4 border-t border-slate-100 shrink-0 flex gap-3">
-          <button onClick={onClose} className="px-4 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-100 rounded-xl transition-colors">
-            Cancel
-          </button>
-          <button onClick={submit}
-            className="flex-1 px-4 py-2.5 text-sm font-bold text-white rounded-xl transition-all hover:opacity-90 hover:shadow-md"
-            style={{ background: `linear-gradient(135deg, ${course.color}, ${course.color}bb)` }}>
-            Submit Enrollment
-          </button>
-        </div>
+        <div className="px-6 py-4 border-t border-slate-100 shrink-0">
+          {/* Button Row */}
+          <div className="flex gap-3">
+            <button 
+              onClick={onClose} 
+              className="px-4 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-100 rounded-xl transition-colors"
+            >
+              Cancel
+            </button>
+            
+            <button
+              onClick={submit}
+              disabled={loading}
+              className="flex-1 px-4 py-2.5 text-sm font-bold text-white rounded-xl transition-all hover:opacity-90 hover:shadow-md disabled:opacity-60"
+              style={{ background: `linear-gradient(135deg, ${course.color}, ${course.color}bb)` }}
+            >
+              {loading ? "Submitting..." : "Submit Enrollment"}
+            </button>
+          </div>
+  
+          {/* Error Message with icon */}
+          {error && (
+              <div className="mt-3 p-2 bg-red-50 border border-red-200 rounded-lg">
+                <p className="text-xs text-red-600 text-center flex items-center justify-center gap-2">
+                  <span className="text-red-500">⚠️</span>
+                  {error}
+                </p>
+              </div>
+            )}
+          </div>
         <p className="text-xs text-slate-400 text-center pb-4">
           We'll contact you within 24 hours to confirm and share payment details.
         </p>
@@ -261,17 +313,17 @@ function CourseCard({ course, onEnroll }) {
   const Icon = course.icon;
 
   return (
-    <div className={`rounded-2xl border-2 bg-white transition-all duration-200 hover:shadow-lg ${course.lightBg}`}>
-      {/* Card header */}
-      <div className="p-6">
+    <div className={`rounded-2xl border-2 bg-white transition-all duration-200 hover:shadow-lg flex flex-col h-full ${course.lightBg}`}>
+      {/* Card header - flex-grow-0 so it doesn't stretch */}
+      <div className="p-6 flex-grow-0">
         <div className="flex items-start justify-between mb-4">
-          <div className="flex items-center gap-3">
-            <div className="p-2.5 rounded-xl" style={{ background: course.color + "20" }}>
+          <div className="flex items-center gap-3 min-w-0 flex-1">
+            <div className="p-2.5 rounded-xl shrink-0" style={{ background: course.color + "20" }}>
               <Icon className="w-5 h-5" style={{ color: course.color }} />
             </div>
-            <div>
-              <h3 className="text-lg font-bold text-slate-900">{course.name}</h3>
-              <p className="text-xs text-slate-400">{course.fullName}</p>
+            <div className="min-w-0 flex-1">
+              <h3 className="text-lg font-bold text-slate-900 truncate">{course.name}</h3>
+              <p className="text-xs text-slate-400 truncate">{course.fullName}</p>
             </div>
           </div>
           {course.tag && (
@@ -281,7 +333,7 @@ function CourseCard({ course, onEnroll }) {
           )}
         </div>
 
-        {/* Quick stats */}
+        {/* Quick stats - fixed height */}
         <div className="grid grid-cols-3 gap-3 mb-5">
           {[
             { label: "Duration", value: course.duration },
@@ -295,28 +347,32 @@ function CourseCard({ course, onEnroll }) {
           ))}
         </div>
 
-        {/* Score target */}
-        <div className="flex items-center gap-2 mb-5 p-3 rounded-xl bg-white/60">
+        {/* Score target - fixed height */}
+        <div className="flex items-center gap-2 mb-5 p-3 rounded-xl bg-white/60 min-h-[52px]">
           <Star className="w-4 h-4 shrink-0" style={{ color: course.color }} />
           <p className="text-xs text-slate-500">Target score:</p>
-          <p className="text-sm font-bold text-slate-900">{course.targetScore}</p>
+          <p className="text-sm font-bold text-slate-900 truncate">{course.targetScore}</p>
         </div>
+      </div>
 
-        {/* Modules */}
-        <div className="space-y-2 mb-5">
+      {/* Modules section - can grow but has max height */}
+      <div className="px-6 flex-grow">
+        <div className="space-y-2">
           {course.modules.map((m) => {
             const MIcon = m.icon;
             return (
               <div key={m.label} className="flex items-center gap-3 p-2.5 rounded-lg bg-white/70">
                 <MIcon className="w-3.5 h-3.5 shrink-0" style={{ color: course.color }} />
                 <span className="text-xs font-semibold text-slate-700 w-24 shrink-0">{m.label}</span>
-                <span className="text-xs text-slate-400">{m.detail}</span>
+                <span className="text-xs text-slate-400 truncate">{m.detail}</span>
               </div>
             );
           })}
         </div>
+      </div>
 
-        {/* Toggle features */}
+      {/* Expandable section */}
+      <div className="px-6">
         <button
           onClick={() => setExpanded(!expanded)}
           className="text-xs font-semibold flex items-center gap-1 mb-4 transition-colors"
@@ -352,16 +408,18 @@ function CourseCard({ course, onEnroll }) {
             </div>
           </div>
         )}
+      </div>
 
-        {/* Price + Enroll */}
+      {/* Price + Enroll - stays at bottom */}
+      <div className="px-6 pb-6 mt-auto">
         <div className="flex items-center justify-between pt-4 border-t border-slate-100/60">
-          <div>
+          <div className="min-w-0 flex-1">
             <p className="text-2xl font-bold text-slate-900">${course.price}</p>
-            <p className="text-xs text-slate-400">full course · all materials</p>
+            <p className="text-xs text-slate-400 truncate">full course · all materials</p>
           </div>
           <button
             onClick={() => onEnroll(course)}
-            className="inline-flex items-center gap-2 px-5 py-2.5 font-bold text-sm text-white rounded-xl transition-all hover:opacity-90 hover:shadow-md group"
+            className="inline-flex items-center gap-2 px-5 py-2.5 font-bold text-sm text-white rounded-xl transition-all hover:opacity-90 hover:shadow-md group shrink-0 ml-3"
             style={{ background: `linear-gradient(135deg, ${course.color} 0%, ${course.color}bb 100%)` }}
           >
             Enroll now
@@ -376,6 +434,44 @@ function CourseCard({ course, onEnroll }) {
 // ─── Main Page ────────────────────────────────────────────────────────────
 export default function LanguageTestPrep() {
   const [enrollCourse, setEnrollCourse] = useState(null);
+  const navigate = useNavigate();
+  const { user } = useAuth();
+  const { addToast } = useToast();
+
+  const location = useLocation();
+  const coursesRef = useRef(null);
+
+  useEffect(() => {
+    if (location.hash === '#courses') {
+      setTimeout(() => {
+        const coursesElement = document.getElementById('courses');
+        if (coursesElement) {
+          coursesElement.scrollIntoView({ 
+            behavior: 'smooth', 
+            block: 'start' 
+          });
+        }
+      }, 500);
+    }
+  }, [location]);
+
+
+
+  function handleCourseCardEnroll(course) {
+    if (!user) {
+      sessionStorage.setItem("redirectAfterLogin", "/services/language-test-prep");
+      sessionStorage.setItem("redirectHash", "#courses");
+
+      addToast({
+        type: "info",
+        title: "Please log in to enroll",
+        description: "You need to be logged in to submit an enrollment form.",
+      });
+      navigate("/login");
+      return;
+    }
+    setEnrollCourse(course);
+  }
 
   return (
     <div className="min-h-screen bg-white">
@@ -444,7 +540,7 @@ export default function LanguageTestPrep() {
       </section>
 
       {/* ── Courses ──────────────────────────────────────────────── */}
-      <section id="courses" className="py-24 px-4 sm:px-6 lg:px-8" style={{ background: "#f8f9fa" }}>
+      <section id="courses" ref={coursesRef} className="py-24 px-4 sm:px-6 lg:px-8" style={{ background: "#f8f9fa" }}>
         <div className="max-w-5xl mx-auto">
           <div className="mb-14">
             <span className="inline-block text-xs font-bold uppercase tracking-widest px-3 py-1.5 rounded-full text-white mb-4"
@@ -456,7 +552,7 @@ export default function LanguageTestPrep() {
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {courses.map((c) => (
-              <CourseCard key={c.id} course={c} onEnroll={setEnrollCourse} />
+              <CourseCard key={c.id} course={c} onEnroll={handleCourseCardEnroll} />
             ))}
           </div>
         </div>

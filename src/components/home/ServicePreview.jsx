@@ -19,7 +19,7 @@ const services = [
     description: "Free guidance and support for university applications. Get expert help with university selection, documents, and applications.",
     icon: GraduationCap,
     gradient: "from-indigo-500 to-purple-500",
-    path: "university-admissions" 
+    path: "/services/university-admissions" 
   },
   {
     id: 2,
@@ -27,7 +27,7 @@ const services = [
     description: "Complete visa documentation support, interview preparation, and application guidance for your study visa.",
     icon: Globe,
     gradient: "from-emerald-500 to-teal-500",
-    path: "visa-assistance"
+    path: "/services/visa-assistance"
   },
   {
     id: 3,
@@ -36,7 +36,7 @@ const services = [
       "IELTS, TOEFL, GRE, GMAT coaching with structured study plans and expert mentors.",
     icon: BookOpen,
     gradient: "from-orange-500 to-amber-500",
-    path: "language-test-prep"
+    path: "/services/language-test-prep"
   },
   {
     id: 4,
@@ -44,7 +44,7 @@ const services = [
     description: "Discover merit-based and need-based scholarships to significantly reduce education costs. Get expert help to find and apply for scholarships.",
     icon: FileText,
     gradient: "from-pink-500 to-rose-500",
-    path: "scholarship-guidance"
+    path: "/services/scholarship-guidance"
   },
   {
     id: 5,
@@ -52,7 +52,7 @@ const services = [
     description: "One-on-one career guidance sessions to help you choose the right path based on your interests, skills, and goals.",
     icon: UserCheck,
     gradient: "from-sky-500 to-blue-500",
-    path: "career-counseling"
+    path: "/services/career-counseling"
   },
   {
     id: 6,
@@ -60,7 +60,7 @@ const services = [
     description: "Professional review of your academic documents with personalized feedback and consultation for study abroad applications.",
     icon: FileCheck,
     gradient: "from-violet-500 to-fuchsia-500",
-    path: "document-review"
+    path: "/services/document-review"
   },
   // {
   //   id: 6,

@@ -20,7 +20,9 @@ export default function AdminLayout() {
       ? "universities"
       : pathname.includes("/applications")
         ? "applications"
-        : "overview";
+        : pathname.includes("/enrollments")
+          ? "enrollments"
+          : "overview";
 
   const handleTabChange = (tab) => {
     navigate(tab === "overview" ? "/admindashboard" : `/admindashboard/${tab}`);

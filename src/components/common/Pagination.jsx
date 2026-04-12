@@ -218,7 +218,7 @@ export default function Pagination({
               onBlur={handlePerPageBlur}
               onKeyPress={handlePerPageKeyPress}
               onFocus={() => setShowPerPageDropdown(true)}
-              className="w-14 sm:w-16 h-8 sm:h-10 px-2 sm:px-3 pr-6 sm:pr-7 rounded-lg border border-gray-300 bg-white text-xs sm:text-sm text-gray-700 hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent transition-colors"
+              className="w-14 sm:w-20 h-8 sm:h-10 px-2 sm:px-3 pr-6 sm:pr-7 rounded-lg border border-gray-300 bg-white text-xs sm:text-sm text-gray-700 hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent transition-colors"
               aria-label="Items per page"
             />
             <ChevronRight 
@@ -257,7 +257,7 @@ export default function Pagination({
               onBlur={handlePageBlur}
               onKeyPress={handlePageKeyPress}
               onFocus={() => setShowPageDropdown(true)}
-              className="w-14 sm:w-16 h-8 sm:h-10 px-2 sm:px-3 pr-6 sm:pr-7 rounded-lg border border-gray-300 bg-white text-xs sm:text-sm text-gray-700 hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent transition-colors"
+              className="w-14 sm:w-20 h-8 sm:h-10 px-2 sm:px-3 pr-6 sm:pr-7 rounded-lg border border-gray-300 bg-white text-xs sm:text-sm text-gray-700 hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent transition-colors"
               aria-label="Select page number"
             />
             <ChevronRight 

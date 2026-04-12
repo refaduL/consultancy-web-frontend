@@ -9,10 +9,12 @@ import ConsultationForm from "./pages/ConsultationForm";
 import Contact from "./pages/Contact";
 import Home from "./pages/Home";
 import Services from "./pages/Services";
-import LanguageTestPrep from "./pages/services/LanguageTestPrep";
-import VisaAssistance from "./pages/services/VisaAssistanceDetail";
-import ScholarshipGuidance from "./pages/services/ScholarshipGuidance";
 import UniversityAdmissions from "./pages/services/UniversityAdmissionDetail";
+import DocumentReviewDetails from "./pages/services/DocumentReviewDetails";
+import ScholarshipGuidance from "./pages/services/ScholarshipGuidance";
+import VisaAssistance from "./pages/services/VisaAssistanceDetail";
+import LanguageTestPrep from "./pages/services/LanguageTestPrep";
+import CareerCounseling from "./pages/services/CareerCounseling";
 import Universities from "./pages/Universities";
 import UniversityDetail from "./pages/UniversityDetail";
 import UserDashboard from "./pages/UserDashboard";
@@ -21,6 +23,7 @@ import UserDashboard from "./pages/UserDashboard";
 import AdminApplicationsPage from "./pages/admin/AdminApplicationsPage";
 import AdminOverviewPage from "./pages/admin/AdminOverviewPage";
 import AdminUniversitiesPage from "./pages/admin/AdminUniversitiesPage";
+import AdminEnrollmentsPage from "./pages/admin/AdminEnrollmentsPage";
 import AdminUsersPage from "./pages/admin/AdminUsersPage";
 import ApplicationReviewPage from "./pages/admin/ApplicationReviewPage";
 // import UniversityDetailPage from "./pages/admin/UniDetailPage";
@@ -29,9 +32,6 @@ import ProtectedRoute from "./routes/ProtectedRoute";
 import PublicRoute from "./routes/PublicRoute";
 import CreateUniversityPage from "./pages/admin/CreateUniversityPage";
 import UniversityDetailPage from "./pages/admin/AdminUniversityDetails";
-import CareerCounseling from "./pages/services/CareerCounseling";
-import StudyAbroadBlog from "./pages/services/StudyAbroadBlog";
-import DocumentReviewDetails from "./pages/services/DocumentReviewDetails";
 
 function App() {
   return (
@@ -125,6 +125,7 @@ function App() {
         <Route path="users" element={<AdminUsersPage />} />
         <Route path="universities" element={<AdminUniversitiesPage />} />
         <Route path="applications" element={<AdminApplicationsPage />} />
+        <Route path="enrollments" element={<AdminEnrollmentsPage />} />
 
         
         <Route path="universities/new" element={<CreateUniversityPage />} />

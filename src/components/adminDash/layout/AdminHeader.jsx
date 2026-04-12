@@ -9,7 +9,7 @@ const menuItems = [
   { id: "users", label: "Users" },
   { id: "universities", label: "Universities" },
   { id: "applications", label: "Applications" },
-  { id: "messages", label: "Messages" },
+  { id: "enrollments", label: "Enrollments" },
   { id: "settings", label: "Settings" },
 ];
 

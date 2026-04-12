@@ -5,7 +5,8 @@ const menuItems = [
   { id: "users", label: "Users", icon: Users },
   { id: "universities", label: "Universities", icon: GraduationCap },
   { id: "applications", label: "Applications", icon: FileText },
-  { id: "settings", label: "Settings", icon: Settings },
+  { id: "enrollments", label: "Enrollments", icon: FileText },
+  // { id: "settings", label: "Settings", icon: Settings },
 ];
 
 export default function AdminSidebar({ activeTab, onTabChange, isOpen, onToggle }) {

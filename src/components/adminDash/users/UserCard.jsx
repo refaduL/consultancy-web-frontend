@@ -4,7 +4,7 @@ import { Eye, Edit, Trash2, CheckCircle, Shield } from "lucide-react";
 import Badge from "../common/Badge";
 import formatDateTime from "../../../helpers/formatDateTime";
 
-export default function UserCard({ user, onVerifyUser, verifyingUserId }) {
+export default function UserCard({ user, onVerifyUser, onDeleteUser, verifyingUserId }) {
   return (
     <div className="bg-white rounded-lg border border-slate-200 p-4">
       {/* Header with Name and Role Badge */}
@@ -16,7 +16,7 @@ export default function UserCard({ user, onVerifyUser, verifyingUserId }) {
             </div>
             {/* Verification Status Badge */}
             {user.is_verified ? (
-              <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full bg-green-100 text-green-700 text-[10px] font-medium">
+              <span className="inline-flex items-center gap-1 p-1 rounded-full bg-green-100 text-green-700 text-[10px] font-medium">
                 <CheckCircle className="w-3 h-3" />
               </span>
             ) : (
@@ -41,7 +41,7 @@ export default function UserCard({ user, onVerifyUser, verifyingUserId }) {
         {/* Verify Button - Only show if not verified */}
         {!user.is_verified && (
           <button
-            onClick={() => onVerifyUser?.(user._id)}
+            onClick={() => onVerifyUser(user._id, user.email)}
             disabled={verifyingUserId === user._id}
             className="flex-1 px-3 py-2 bg-amber-50 hover:bg-amber-100 rounded-lg transition-colors text-xs font-medium text-amber-700 disabled:opacity-50 disabled:cursor-not-allowed"
           >
@@ -64,13 +64,16 @@ export default function UserCard({ user, onVerifyUser, verifyingUserId }) {
           View
         </button>
         
-        <button className="flex-1 px-3 py-2 bg-indigo-50 hover:bg-indigo-100 rounded-lg transition-colors text-xs font-medium text-indigo-600">
-          <Edit className="w-3.5 h-3.5 inline mr-1" />
+        <button 
+          className="flex-1 px-3 py-2 bg-indigo-50 hover:bg-indigo-100 rounded-lg transition-colors text-xs font-medium text-indigo-600">
+            <Edit className="w-3.5 h-3.5 inline mr-1" />
           Edit
         </button>
         
-        <button className="px-3 py-2 bg-red-50 hover:bg-red-100 rounded-lg transition-colors">
-          <Trash2 className="w-3.5 h-3.5 text-red-600" />
+        <button 
+          onClick={() => onDeleteUser(user._id)}
+          className="px-3 py-2 bg-red-50 hover:bg-red-100 rounded-lg transition-colors" >
+            <Trash2 className="w-3.5 h-3.5 text-red-600" />
         </button>
       </div>
     </div>
